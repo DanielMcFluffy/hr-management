@@ -1,0 +1,73 @@
+@use './styles/positioning';
+
+.content-container {
+    @include positioning.flex-row
+}
+
+sidebar {
+    @include positioning.flex-column;
+    height: 100vh;
+    width: 100px;
+    transition: width 0.5s;
+    
+
+    @media screen and (min-width: 1278px){
+        width: 300px;
+    }
+
+    &.open {
+        width: 300px;
+    }
+
+    @media screen and (max-width: 1078px) {
+        &.open {
+            width: 200px;
+        }
+    }
+
+    @media screen and (max-width: 548px) {
+        display: none;
+    }
+    
+    background-color: red;
+}
+
+.wrapper {
+    overflow: hidden;
+    height: 100vh;
+    width: 0px;
+
+    &.active {
+        sidebar-mobile {
+            transform: translateX(0);
+        }
+    }
+
+}
+
+sidebar-mobile {
+    position: absolute;
+    @include positioning.flex-column;
+    height: 100vh;
+    width: 75px;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+
+    @media screen and (min-width: 548px) {
+        display: none;
+    }
+
+
+    background-color: blue;
+
+}
+
+
+layout {
+    @include positioning.flex-row;
+    background-color: green;
+}
+
+// .main-content {
+    
+// }

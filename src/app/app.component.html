@@ -1,0 +1,28 @@
+<div class="app-container">
+  <layout (opened)="checkOpen($event)"
+  ></layout>
+  
+ 
+  <div class="content-container">
+
+    <sidebar  
+    [isOpen]="isOpen"
+    (isOpen$)="isOpen = $event"
+    [ngClass]="isOpen ? 'open' : ''"></sidebar>
+
+    <div class="wrapper"
+    [ngClass]="mobileIsOpen ? 'active' : ''"
+    >
+      <sidebar-mobile
+      [isOpen]="mobileIsOpen"
+      ></sidebar-mobile>
+    </div>
+
+
+
+    <div class="main-content">
+      f
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
