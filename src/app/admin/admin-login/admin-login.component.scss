@@ -1,0 +1,37 @@
+@use '../styles/positioning';
+@use '../styles/message-alert';
+.admin-login-container {
+    height: 100vh;
+    width: 100vw;
+}
+.header {
+    @include positioning.flex-row;
+}
+
+.login-form-container {
+    @include positioning.centering-column;
+    height: 80%;
+}
+
+// mat-card-title {
+//     padding: 0 0 1rem 0;
+// }
+
+mat-form-field {
+    width: 100%;
+}
+
+.message {
+
+    visibility: hidden;
+
+    &.error {
+        visibility: visible;
+        @include message-alert.error-message;
+    }
+
+    &.success {
+        visibility: visible;
+        @include message-alert.success-message;
+    }
+}

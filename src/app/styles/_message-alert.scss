@@ -1,0 +1,17 @@
+    // //error message
+  @mixin error-message{ color: red;
+    font-size: 0.8rem;
+    padding-left: 16px;
+  }
+
+    //success login message
+   @mixin success-message { color: green;
+    font-size: 0.8rem;
+    padding-left: 16px;
+   }
+
+    //info message
+    @mixin info-message { color: blue;
+    font-size: 0.8rem;
+    padding-left: 16px;
+    }
