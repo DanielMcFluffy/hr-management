@@ -4,8 +4,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm,  ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-login',
@@ -30,34 +31,38 @@ export class AdminLoginComponent {
     event.stopPropagation();
   }
 
+
   //access form data 
   @ViewChild('form') form!: NgForm;
 
-  //form validity
-  formValid!: boolean;
-
-  loginAttempted = false;
+showSuccessMessage = false;
 
 //form data
   email = '';
   password = '';
 
-  // //form control validation function 
-  // checkControl(control: NgModel) {
-  //   if (control.control.value && control.control.value.length > 10)
-  // }
+  constructor(
+    private router: Router,
+  ) {
+  }
 
   //view form data
   submitForm() {
-    this.loginAttempted = true; 
     console.log(this.form);
-    if (!this.form.valid && (this.email || this.password)) {
-      this.formValid = false;
+    if (this.form.valid) {
+      //trigger send data to server
+      //if response is 200 redirect to admin dashboard while including a success message
+      //if request is unsuccessful display error message (500)
+      //if response is 400 display error message
+
+
+      //if login successful redirect to admin dashboard
+      this.showSuccessMessage = true;
+      this.form.resetForm();
+      setTimeout(() => {
+        this.router.navigate(['/admin/dashboard']);
+      }, 2000);
     }
-    else if (this.formValid) {
-      // this.loginAttempted = false;
-      this.formValid = true;
-    }
-    
+
   }
 }

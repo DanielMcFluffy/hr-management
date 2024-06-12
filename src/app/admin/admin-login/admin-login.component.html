@@ -7,11 +7,22 @@
             <mat-card-header>
               <mat-card-title>Login </mat-card-title>
               </mat-card-header>
-                <div class="message" [ngClass]="!formValid && loginAttempted ? 'error' : ''">
-                  Please enter valid email and password
-                </div>
+
+              <!-- showSuccessMessage ensures only one message block is shown at one time -->
+                @if (!showSuccessMessage) {
+                    <!-- both message divs visibility are hidden by default, once they're assigned 'error' or 'success', they will be visible -->
+                    <div class="message" 
+                    [ngClass]="{'error': form.submitted && form.invalid}" >
+                      Please enter valid email and password
+                    </div>
+                } @else {
+                    <div class="message success">
+                      Welcome back! Redirecting to admin dashboard...
+                    </div>
+                }
+
             <form
-            (ngSubmit)="submitForm()"
+            (ngSubmit)="form.form.valid && submitForm()"
             #form="ngForm">
             <mat-card-content ngModelGroup="login"
             >
@@ -35,7 +46,7 @@
                             name="password" 
                             [(ngModel)]="password" 
                             matInput [type]="hide ? 'password' : 'text'">
-                        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <button type="button" mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                       </mat-form-field>
