@@ -20,11 +20,12 @@ $burgerBarColor: typography.$font-color-primary;
   @include positioning.flex-row;
   background-color: color.$primary-color;
   width: $burgerWidth + 15px;
-  height: $burgerWidth;
+  height: 2rem;
+  z-index: 1;
   cursor: pointer;
 
   @media screen and (min-width: 548px) {
-    width: 100%;
+    display: none;
   }
 
   //the styling to ensure some space between the mobile menu and the burger
@@ -88,36 +89,79 @@ $burgerBarColor: typography.$font-color-primary;
     transition: top ease-out .2s, transform .2s ease-out .3s;
   }
 
-  //the desktop toolbar will be nested in the burger-menu
+  }
+  //the desktop toolbar 
   .layout-content {
+    @include positioning.flex-row;
+    background-color: color.$primary-color;
     width: 100%;
+    padding: 0 1rem 0 1rem;
+    justify-content: space-between;
     @media screen and (max-width: 548px) {
       display: none;      
     }
+
+    //button/icon styling
+
+    .utilities {
+      @include positioning.centering;
+      overflow: hidden;
+      gap: 4rem;
+      .nav-buttons {
+        display: flex;
+        gap: 0.5rem
+      }
+
+      img {
+        height: 120px; // Scales the height automatically to maintain the aspect ratio
+        object-fit: contain; // Keeps the image's aspect ratio, making it fit nicely within the container
+        margin: -1.8rem -1.5rem -1.8rem -1.5rem; // Removes the padding from the image
+        cursor: pointer;
+      }
+
+    }
+
+
+    .account {
+      @include positioning.centering;
+
+    }
+
   }
   
-  }
 //the mobile toolbar will be placed out of the burger-menu container
 .layout-content-mobile {
   padding: 0 0 0 1rem;
   width: 100%;
   background-color: color.$primary-color;
+  z-index: 1;
 
   @media screen and (min-width: 548px) {
     display: none;      
   }
 }
+
+mat-icon {
+  color: typography.$font-color-primary;
+}
+
+search-bar {
+  height: 100%;
+}
+
 //styling for overlay
 .overlay {
   position: fixed;
   display: none;
+  overflow: hidden;
+  pointer-events: none; //crucial to ensure the click event is not captured by the overlay, and instead is targetted at the content section
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  z-index: -4; //z-index to ensure the overlay is behind the burger menu
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0; //z-index to ensure the overlay is behind the burger menu
   cursor: pointer;
 }

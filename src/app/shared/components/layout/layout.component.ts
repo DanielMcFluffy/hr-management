@@ -1,15 +1,15 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 @Component({
   selector: 'layout',
   standalone: true,
-  imports: [],
+  imports: [MatIconModule, MatButtonModule, SearchBarComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-
-
 
   @Input() init!: boolean;
   @Output() opened = new EventEmitter<boolean>();
@@ -37,7 +37,6 @@ export class LayoutComponent {
       }
       
     } catch (error) {
-      console.log('Sidebar opened')
     }
 
   }

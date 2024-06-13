@@ -1,0 +1,20 @@
+<!-- @if (!disableSearch) { -->
+
+
+    <!-- } -->
+    <div class="wrapper">
+      <form (ngSubmit)="onSearch()">
+        <div class="searchBar">
+          <input
+            id="searchQueryInput"
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            name="search"
+            placeholder="Search" />
+          <button mat-icon-button type="submit" >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </form>
+      </div>
