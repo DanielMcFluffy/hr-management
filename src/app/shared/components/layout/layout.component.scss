@@ -1,25 +1,50 @@
+@use '../../../styles/positioning';
+@use '../../../styles/color';
+@use '../../../styles/typography';
+
+//548px is the breakpoint for the mobile view
+
+//the inner container containing the burger
 .burger-container {
     @media screen and (min-width: 548px) {
         display: none;
     }
 }
-
+//burger styling
 $burgerWidth: 24px;
 $burgerBarHeight: 1px;
-$burgerBarColor: #333;
+$burgerBarColor: typography.$font-color-primary;
 
+//represents the container for the burger and the toolbar content
 .burger-menu {
-  width: $burgerWidth;
+  @include positioning.flex-row;
+  background-color: color.$primary-color;
+  width: $burgerWidth + 15px;
   height: $burgerWidth;
   cursor: pointer;
 
+  @media screen and (min-width: 548px) {
+    width: 100%;
+  }
+
+  //the styling to ensure some space between the mobile menu and the burger
+  .burger-space {
+    width: $burgerWidth - 2 * $burgerBarHeight;
+    height: 1px; // Minimal height to ensure it occupies space
+    flex: 0 0 auto; // Prevent flexbox from resizing it
+
+    @media screen and (min-width: 548px) {
+      display: none;
+    }
+  }
+  //the container for the burger itself
   .burger-container {
     position: relative;
 
     .burger-inner {
       position: absolute;
       width: $burgerWidth - 2 * $burgerBarHeight;
-      left: 0px;
+      left: 3px;
       top: 11px;
       border: $burgerBarHeight solid $burgerBarColor;
       transition: border-color .2s ease-in .2s;
@@ -45,7 +70,7 @@ $burgerBarColor: #333;
       }
     }
   }
-
+  //transition styling for the burger
   &.active .burger-container .burger-inner {
     border-color: transparent;
     transition: border-color ease-in .1s;
@@ -62,8 +87,27 @@ $burgerBarColor: #333;
     transform: rotate(45deg);
     transition: top ease-out .2s, transform .2s ease-out .3s;
   }
-}
 
+  //the desktop toolbar will be nested in the burger-menu
+  .layout-content {
+    width: 100%;
+    @media screen and (max-width: 548px) {
+      display: none;      
+    }
+  }
+  
+  }
+//the mobile toolbar will be placed out of the burger-menu container
+.layout-content-mobile {
+  padding: 0 0 0 1rem;
+  width: 100%;
+  background-color: color.$primary-color;
+
+  @media screen and (min-width: 548px) {
+    display: none;      
+  }
+}
+//styling for overlay
 .overlay {
   position: fixed;
   display: none;
@@ -74,6 +118,6 @@ $burgerBarColor: #333;
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: -4;
+  z-index: -4; //z-index to ensure the overlay is behind the burger menu
   cursor: pointer;
 }

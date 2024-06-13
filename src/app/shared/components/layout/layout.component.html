@@ -1,7 +1,18 @@
 
 <div class="overlay" [style.display]="showOverlay ? 'block' : 'none'"></div>
-<div class="burger-menu" [class.active]="active" (click)="onBurgerClicked()">
+<div class="burger-menu" [class.active]="active" (click)="currentWidth < maxWidth ? onBurgerClicked() : ''">
+
     <div class="burger-container">
       <div class="burger-inner"></div>
     </div>
+
+    <div class="burger-space"></div>
+
+    <div class="layout-content">
+      desktop
+    </div>
+
+  </div>
+  <div class="layout-content-mobile">
+    mobile
   </div>

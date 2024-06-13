@@ -1,20 +1,45 @@
 @use '../styles/positioning';
 @use '../styles/message-alert';
+@use '../styles/color'; 
+@use '../styles/typography'; 
+
 .admin-login-container {
     height: 100vh;
     width: 100vw;
-}
-.header {
-    @include positioning.flex-row;
+    background-color: color.$background-color;
 }
 
 .login-form-container {
     @include positioning.centering-column;
-    height: 80%;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+}
+
+img {
+    max-width: inherit;
+    width: 200px;
+    height: 200px; 
+    object-fit: contain; // This ensures the image scales correctly within the container
+    background-color: color.$primary-color;
+    border-radius: 50%; // This makes the image round
+    display: block;
+    margin: auto; // Centers the image horizontally within its container
+}
+
+mat-card {
+    padding: 2rem 1rem 2rem 1rem;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-header {
+    justify-content: center;
 }
 
 mat-card-title {
     padding: 0 0 0.8rem 0;
+    color: color.$secondary-color;
 }
 
 mat-form-field {

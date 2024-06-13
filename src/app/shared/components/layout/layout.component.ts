@@ -18,14 +18,38 @@ export class LayoutComponent {
   //event.target.innerwidth is the width of the window
   onResize(event: any) {
     this.hideOverlay(event.target.innerWidth);
+    this.currentWidth = event.target.innerWidth;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: any) {
+
+    //error handling for the sidebar --current setup will throw an error of accessing the classList of null
+    // if the sidebar is opened and the user clicks outside the sidebar, the sidebar will close
+    try {
+      if (
+        event.target.classList.contains('main-content') || 
+        event.target.children['0'].classList.contains('overlay')
+      ) {
+        this.active = false;
+        this.showOverlay = false;
+        this.opened.emit(this.active);
+      }
+      
+    } catch (error) {
+      console.log('Sidebar opened')
+    }
+
   }
 
   active = false;
   showOverlay = false;
+  currentWidth!: number;
   maxWidth = 548; //max width for the overlay to be shown
 
   ngOnInit() {
     this.active = this.init || false;
+    this.currentWidth = window.innerWidth;
   }
 
   onBurgerClicked() {
