@@ -1,11 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @use './app/styles/typography';
 
+// html {
+//         // //hides the scrollbar, but maintains the scroll feature
+//         // &::-webkit-scrollbar {
+//         //     display: none;
+//         //   }
+//         // overflow-y: scroll;
+        
+// }
 
 body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     font-family: typography.$main-font;
     color: typography.$font-color-primary;
+    overflow-y: hidden;
+
 }
 

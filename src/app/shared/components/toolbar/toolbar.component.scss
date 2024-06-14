@@ -1,0 +1,167 @@
+@use '../../../styles/positioning';
+@use '../../../styles/color';
+@use '../../../styles/typography';
+
+//548px is the breakpoint for the mobile view
+
+//the inner container containing the burger
+.burger-container {
+    @media screen and (min-width: 548px) {
+        display: none;
+    }
+}
+//burger styling
+$burgerWidth: 24px;
+$burgerBarHeight: 1px;
+$burgerBarColor: typography.$font-color-primary;
+
+//represents the container for the burger and the toolbar content
+.burger-menu {
+  @include positioning.flex-row;
+  background-color: color.$primary-color;
+  width: $burgerWidth + 15px;
+  height: 2rem;
+  z-index: 1;
+  cursor: pointer;
+
+  @media screen and (min-width: 548px) {
+    display: none;
+  }
+
+  //the styling to ensure some space between the mobile menu and the burger
+  .burger-space {
+    width: $burgerWidth - 2 * $burgerBarHeight;
+    height: 1px; // Minimal height to ensure it occupies space
+    flex: 0 0 auto; // Prevent flexbox from resizing it
+
+    @media screen and (min-width: 548px) {
+      display: none;
+    }
+  }
+  //the container for the burger itself
+  .burger-container {
+    position: relative;
+
+    .burger-inner {
+      position: absolute;
+      width: $burgerWidth - 2 * $burgerBarHeight;
+      left: 3px;
+      top: 11px;
+      border: $burgerBarHeight solid $burgerBarColor;
+      transition: border-color .2s ease-in .2s;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: -6px;
+        left: -$burgerBarHeight;
+        width: $burgerWidth - 2 * $burgerBarHeight;
+        border: $burgerBarHeight solid $burgerBarColor;
+        transition: top .2s ease-in .3s, transform ease-in .2s;
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 4px;
+        left: -$burgerBarHeight;
+        width: $burgerWidth - 2 * $burgerBarHeight;
+        border: $burgerBarHeight solid $burgerBarColor;
+        transition: top .2s ease-in .3s, transform ease-in .2s;
+      }
+    }
+  }
+  //transition styling for the burger
+  &.active .burger-container .burger-inner {
+    border-color: transparent;
+    transition: border-color ease-in .1s;
+  }
+
+  &.active .burger-container .burger-inner::before {
+    top: -$burgerBarHeight;
+    transform: rotate(-45deg);
+    transition: top ease-out .2s, transform .2s ease-out .3s;
+  }
+
+  &.active .burger-container .burger-inner::after {
+    top: -$burgerBarHeight;
+    transform: rotate(45deg);
+    transition: top ease-out .2s, transform .2s ease-out .3s;
+  }
+
+  }
+  //the desktop toolbar 
+  .layout-content {
+    @include positioning.flex-row;
+    background-color: color.$primary-color;
+    width: 100%;
+    padding: 0.2rem 1rem 0.2rem 1rem;
+    justify-content: space-between;
+    @media screen and (max-width: 548px) {
+      display: none;      
+    }
+
+    //button/icon styling
+
+    .utilities {
+      @include positioning.centering;
+      overflow: hidden;
+      gap: 4rem;
+      .nav-buttons {
+        display: flex;
+        gap: 0.5rem
+      }
+
+      img {
+        height: 120px; // Scales the height automatically to maintain the aspect ratio
+        object-fit: contain; // Keeps the image's aspect ratio, making it fit nicely within the container
+        margin: -1.8rem -1.5rem -1.8rem -1.5rem; // Removes the padding from the image
+        cursor: pointer;
+      }
+
+    }
+
+
+    .account {
+      @include positioning.centering;
+
+    }
+
+  }
+  
+//the mobile toolbar will be placed out of the burger-menu container
+.layout-content-mobile {
+  padding: 0 0 0 1rem;
+  width: 100%;
+  background-color: color.$primary-color;
+  z-index: 1;
+
+  @media screen and (min-width: 548px) {
+    display: none;      
+  }
+}
+
+mat-icon {
+  color: typography.$font-color-primary;
+}
+
+search-bar {
+  height: 100%;
+}
+
+//styling for overlay
+.overlay {
+  position: fixed;
+  display: none;
+  overflow: hidden;
+  pointer-events: none; //crucial to ensure the click event is not captured by the overlay, and instead is targetted at the content section
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0; //z-index to ensure the overlay is behind the burger menu
+  cursor: pointer;
+}

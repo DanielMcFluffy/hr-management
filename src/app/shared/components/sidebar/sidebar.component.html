@@ -1,3 +1,104 @@
-<div class="sidebar-container">
-    navbar <button (click)="openSidebar()">{{isOpen ? 'close': 'open' }}</button>
+<div class="sidebar-container" [ngClass]="isOpen ? 'active' : ''">
+
+    <div class="main">
+        <!-- introduce a @for loop for this component -->
+            <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">space_dashboard</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Dashboard</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">admin_panel_settings</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Admin Panel</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">badge</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Permissions</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">groups</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Employees</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">topic</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Projects</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">punch_clock</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Schedule</span>
+                        </div>
+                    }
+                </div>
+              </button>
+              <button  >
+                <div class="button-text-container">
+                    <div>
+                        <mat-icon fontSet="material-icons-outlined">free_cancellation</mat-icon> 
+                    </div>
+                    @if(isOpen) {
+    
+                        <div>
+                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Leave</span>
+                        </div>
+                    }
+                </div>
+              </button>
+    </div>
+
+    <!-- open sidebar button -->
+    <button class="sidebar-opener" (click)="openSidebar()"><mat-icon>
+        {{isOpen ? 'chevron_left': 'chevron_right' }}
+    </mat-icon> </button>
+
+
 </div>
