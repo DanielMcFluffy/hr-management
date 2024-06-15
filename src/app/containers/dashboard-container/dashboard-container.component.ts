@@ -1,18 +1,24 @@
 import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LayoutComponent } from '../../components/toolbar/toolbar.component';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { LayoutComponent } from '../../shared/components/toolbar/toolbar.component';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
-import { SidebarMobileComponent } from '../../components/sidebar-mobile/sidebar-mobile.component';
+import { SidebarMobileComponent } from '../../shared/components/sidebar-mobile/sidebar-mobile.component';
 
 @Component({
-  selector: 'app-layout-route',
+  selector: 'dashboard-container',
   standalone: true,
-  imports: [RouterOutlet, LayoutComponent, SidebarComponent, SidebarMobileComponent, CommonModule],
-  templateUrl: './layout-route.component.html',
-  styleUrl: './layout-route.component.scss'
+  imports: [
+    RouterOutlet,
+    LayoutComponent,
+    SidebarComponent,
+    SidebarMobileComponent,
+    CommonModule,
+  ],
+  templateUrl: './dashboard-container.component.html',
+  styleUrl: './dashboard-container.component.scss',
 })
-export class LayoutRouteComponent {
+export class DashboardContainerComponent {
   isOpen = false;
   mobileIsOpen = false;
   private readonly minWidth = 976;
@@ -28,7 +34,7 @@ export class LayoutRouteComponent {
   }
 
   private adjustSidebarOnResize(width: number) {
-    if ((width < this.minWidth) && (width < this.previousWidth)) {
+    if (width < this.minWidth && width < this.previousWidth) {
       this.isOpen = false;
     }
     this.previousWidth = width; // Update the previousWidth after each adjustment
