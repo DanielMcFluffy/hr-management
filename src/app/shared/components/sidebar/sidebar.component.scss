@@ -1,5 +1,6 @@
 @use '../../../styles/typography';
 @use '../../../styles/positioning';
+@use '../../../styles/color';
 
 .sidebar-container {
     @include positioning.flex-column;
@@ -30,6 +31,9 @@
         gap: 1rem;
         width: 90%;
 
+        sidebar-button {
+            width: 100%;
+        }
         
         button {
             color: typography.$font-color-primary;
@@ -45,8 +49,8 @@
 
 
             &:hover {
-                background-color: #f0f0f0; 
-                color: typography.$font-color-secondary;
+                background-color: color.$background-color-dark; 
+                color: typography.$font-color-primary;
             }
 
             .button-text-container {
@@ -86,7 +90,48 @@
         }
 
     }
+}
 
+sidebar-button {
+
+    &:hover {
+        .button-text-container {
+            color: black;
+            background-color: transparent
+        }
+    }
+
+    .employee-menu  {
+        @include positioning.flex-column;
+        // background-color: color.$background-color-dark;
+        gap:5px;
+        border-radius: 7px;
+        height: 120%;
+        transform: translateX(200%);
+        display: none;
+        position: absolute;
+        transition: transform 0.5s ease, height 0.5s ease;
+
+        @media screen and (min-width: 548px){
+            display: block;
+        }
+    }
+
+    &.expanded {
+
+        .employee-menu  {
+                transform: translateX(0%);
+                position: static;
+        }
+    }
 
 }
+
+
+li {
+    list-style-type: none;
+
+  }
+  
+
 

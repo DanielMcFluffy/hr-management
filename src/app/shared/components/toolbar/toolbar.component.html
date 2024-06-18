@@ -21,17 +21,33 @@
     </div>
   </div>
   <div class="account">
-    <button mat-icon-button>
-      <mat-icon >notifications</mat-icon>
+    <button matTooltip="Notifications" mat-icon-button>
+      <mat-icon class="notifications-icon" >notifications</mat-icon>
+      <div class="dropdown">
+          <li>test1</li>
+          <li>test2</li>
+      </div>
     </button>
-    <button mat-icon-button>
-      <mat-icon >inbox</mat-icon>
+    <button matTooltip="Messages" mat-icon-button>
+      <mat-icon class="inbox-icon" >inbox</mat-icon>
+      <div class="dropdown">
+        <li>test1</li>
+        <li>test2</li>
+    </div>
     </button>
-    <button mat-icon-button>
-      <mat-icon>account_circle</mat-icon>
+    <button matTooltip="Profile" mat-icon-button>
+      <mat-icon class="profile-icon">account_circle</mat-icon>
+      <div class="dropdown">
+        <li>test1</li>
+        <li>test2</li>
+    </div>
     </button>
-    <button mat-icon-button>
-      <mat-icon>settings</mat-icon>
+    <button matTooltip="Settings" mat-icon-button>
+      <mat-icon class="settings-icon">settings</mat-icon>
+      <div class="dropdown">
+        <li>test1</li>
+        <li>test2</li>
+    </div>
     </button>
   </div>
 </div>

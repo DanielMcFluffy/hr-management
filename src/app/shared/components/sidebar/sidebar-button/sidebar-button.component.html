@@ -1,0 +1,16 @@
+<button  >
+    <div class="button-text-container">
+        <div>
+            <mat-icon fontSet="material-icons-outlined">{{iconName}}</mat-icon> 
+        </div>
+        @if(isOpen) {
+
+            <div>
+                <span [style.opacity]="isOpen ? 1 : 0" class="button-text">{{label}}</span>
+            </div>
+        }
+    </div>
+
+    <ng-content></ng-content>
+    
+  </button>

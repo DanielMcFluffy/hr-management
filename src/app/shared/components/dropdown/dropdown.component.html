@@ -1,0 +1,5 @@
+    <ul>
+        @for( value of values; track $index) {
+            <li  (click)="select(value.value)">{{value.label}}</li>
+        }
+    </ul>

@@ -1,0 +1,35 @@
+@use '../../../../styles/typography';
+@use '../../../../styles/positioning';
+
+button {
+    color: typography.$font-color-primary;
+    // Add a transition for smooth color change
+    transition: background-color 0.3s ease;
+    background-color: transparent;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+
+
+
+    &:hover {
+        background-color: #f0f0f0; 
+        color: typography.$font-color-secondary;
+    }
+
+    .button-text-container {
+
+       @include positioning.centering;
+    //    justify-content: space-between; //
+
+        .button-text {
+            margin: 4px 0 0 0;
+            display: inline-block; // Ensures the span behaves like a block element for width purposes
+            width: 100px; // Adjust based on the maximum expected text width
+            transition: opacity 0.3s ease-in-out; // Smooth transition for opacity change
+        }
+    }
+
+}

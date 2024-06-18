@@ -169,3 +169,49 @@ search-bar {
   z-index: 0; //z-index to ensure the overlay is behind the burger menu
   cursor: pointer;
 }
+
+.dropdown {
+  position: absolute;
+  display: none;
+  width: 100px;
+}
+
+//not the best way to do this
+.notifications-icon + .dropdown,
+.inbox-icon + .dropdown{
+  top: 2.5rem;
+  right: -4rem;
+}
+
+.profile-icon + .dropdown{
+  top: 2.5rem;
+  right: -2.5rem;
+}
+
+.settings-icon + .dropdown{
+  top: 2.5rem;
+  right: -0.5rem;
+}
+
+//for when toolbar button is active
+.cdk-focused {
+  color: typography.$font-color-secondary;
+
+  .dropdown {
+    background-color: white;
+    color: typography.$font-color-secondary;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    display: block;
+    box-shadow: 10px 0 10px 0 rgba(0, 0, 0, 0.1);
+
+    li {
+      margin-bottom: 4px;
+      border-radius: 5px;
+      &:hover {
+        background-color: color.$background-color;
+      }
+    }
+  }
+}

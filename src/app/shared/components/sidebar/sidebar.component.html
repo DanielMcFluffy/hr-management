@@ -1,98 +1,76 @@
 <div class="sidebar-container" [ngClass]="isOpen ? 'active' : ''">
 
     <div class="main">
-        <!-- introduce a @for loop for this component -->
-            <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">space_dashboard</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Dashboard</span>
-                        </div>
-                    }
+
+              <sidebar-button [isOpen]="isOpen" [iconName]="'space_dashboard'" [label]="'Dashboard'"></sidebar-button>
+
+              <sidebar-button [isOpen]="isOpen" [iconName]="'admin_panel_settings'" [label]="'Admin Panel'"></sidebar-button>
+
+              <sidebar-button [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
+
+              <sidebar-button (click)="expandButton()" 
+              [ngClass]="isExpand ? 'expanded' : '' "
+               [isOpen]="isOpen" [iconName]="'groups'" [label]="'Employees'">
+
+                <div class="employee-menu" [ngStyle]="{'display': !isOpen ? 'none' : (isOpen ? 'block' : null) }" >
+                        <ul>
+                            <li>
+                                <button  >
+                                    <div class="button-text-container">
+                                        <div>
+                                            <mat-icon fontSet="material-icons-outlined">reduce_capacity</mat-icon> 
+                                        </div>
+                                        @if(isOpen) {
+                                
+                                            <div>
+                                                <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Department</span>
+                                            </div>
+                                        }
+                                    </div>
+                                  </button>
+                            </li>
+                            <li>
+                                <button  >
+                                    <div class="button-text-container">
+                                        <div>
+                                            <mat-icon fontSet="material-icons-outlined">edit_calendar</mat-icon> 
+                                        </div>
+                                        @if(isOpen) {
+                                
+                                            <div>
+                                                <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Attendance</span>
+                                            </div>
+                                        }
+                                    </div>
+                                  </button>
+                            </li>
+                            <li>
+                                <button  >
+                                    <div class="button-text-container">
+                                        <div>
+                                            <mat-icon fontSet="material-icons-outlined">contact_mail</mat-icon> 
+                                        </div>
+                                        @if(isOpen) {
+                                
+                                            <div>
+                                                <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Payroll</span>
+                                            </div>
+                                        }
+                                    </div>
+                                  </button>
+                            </li>
+                        </ul>
+
                 </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">admin_panel_settings</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Admin Panel</span>
-                        </div>
-                    }
-                </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">badge</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Permissions</span>
-                        </div>
-                    }
-                </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">groups</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Employees</span>
-                        </div>
-                    }
-                </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">topic</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Projects</span>
-                        </div>
-                    }
-                </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">punch_clock</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Schedule</span>
-                        </div>
-                    }
-                </div>
-              </button>
-              <button  >
-                <div class="button-text-container">
-                    <div>
-                        <mat-icon fontSet="material-icons-outlined">free_cancellation</mat-icon> 
-                    </div>
-                    @if(isOpen) {
-    
-                        <div>
-                            <span [style.opacity]="isOpen ? 1 : 0" class="button-text">Leave</span>
-                        </div>
-                    }
-                </div>
-              </button>
+
+              </sidebar-button>
+
+              <sidebar-button [isOpen]="isOpen" [iconName]="'topic'" [label]="'Projects'"></sidebar-button>
+
+              <sidebar-button [isOpen]="isOpen" [iconName]="'punch_clock'" [label]="'Schedule'"></sidebar-button>
+              
+              <sidebar-button [isOpen]="isOpen" [iconName]="'free_cancellation'" [label]="'Leave'"></sidebar-button>
+
     </div>
 
     <!-- open sidebar button -->
