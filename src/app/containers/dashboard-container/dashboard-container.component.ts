@@ -19,9 +19,10 @@ import { SidebarMobileComponent } from '../../shared/components/sidebar-mobile/s
   styleUrl: './dashboard-container.component.scss',
 })
 export class DashboardContainerComponent {
-  isOpen = false;
+  isOpen = true;
   mobileIsOpen = false;
   private readonly minWidth = 976;
+  private readonly maxWidth = 1278;
   private previousWidth = window.innerWidth; // Initialize with the current screen width
 
   @HostListener('window:resize', ['$event'])
@@ -36,10 +37,13 @@ export class DashboardContainerComponent {
   private adjustSidebarOnResize(width: number) {
     if (width < this.minWidth && width < this.previousWidth) {
       this.isOpen = false;
+    } else if (width > this.maxWidth && width > this.previousWidth) {
+      this.isOpen = true;
+    
     }
     this.previousWidth = width; // Update the previousWidth after each adjustment
   }
-
+ 
   checkOpen(event: boolean) {
     this.mobileIsOpen = event;
   }

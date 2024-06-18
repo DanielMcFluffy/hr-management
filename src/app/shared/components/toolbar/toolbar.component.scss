@@ -19,8 +19,9 @@ $burgerBarColor: typography.$font-color-primary;
 .burger-menu {
   @include positioning.flex-row;
   background-color: color.$primary-color;
-  width: $burgerWidth + 15px;
-  height: 2rem;
+  width: $burgerWidth + 20px;
+  padding: 7px 0 0 1rem;
+  border-style: none;
   z-index: 1;
   cursor: pointer;
 
@@ -91,7 +92,7 @@ $burgerBarColor: typography.$font-color-primary;
 
   }
   //the desktop toolbar 
-  .layout-content {
+  .toolbar-content {
     @include positioning.flex-row;
     background-color: color.$primary-color;
     width: 100%;
@@ -130,8 +131,11 @@ $burgerBarColor: typography.$font-color-primary;
   }
   
 //the mobile toolbar will be placed out of the burger-menu container
-.layout-content-mobile {
-  padding: 0 0 0 1rem;
+.toolbar-content-mobile {
+  @include positioning.flex-row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem 0 1rem;
   width: 100%;
   background-color: color.$primary-color;
   z-index: 1;
