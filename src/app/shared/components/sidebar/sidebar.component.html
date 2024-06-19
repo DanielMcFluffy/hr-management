@@ -8,7 +8,7 @@
 
               <sidebar-button [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
 
-              <sidebar-button (click)="expandButton()" 
+              <sidebar-button (click)="expandButton($event)" 
               [ngClass]="isExpand ? 'expanded' : '' "
                [isOpen]="isOpen" [iconName]="'groups'" [label]="'Employees'">
 
@@ -16,7 +16,7 @@
                         <ul>
                             <li>
                                 <button  >
-                                    <div class="button-text-container">
+                                    <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">reduce_capacity</mat-icon> 
                                         </div>
@@ -31,7 +31,7 @@
                             </li>
                             <li>
                                 <button  >
-                                    <div class="button-text-container">
+                                    <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">edit_calendar</mat-icon> 
                                         </div>
@@ -46,7 +46,7 @@
                             </li>
                             <li>
                                 <button  >
-                                    <div class="button-text-container">
+                                    <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">contact_mail</mat-icon> 
                                         </div>

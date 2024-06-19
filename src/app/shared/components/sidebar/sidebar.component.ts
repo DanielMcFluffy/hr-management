@@ -27,8 +27,12 @@ export class SidebarComponent {
     this.isOpen$.emit(true);
   }
 
-  expandButton() {
+  expandButton($event: MouseEvent | any) {
 
-      this.isExpand = true;
+      console.log($event.target.offsetParent.className);
+      if ($event.target.offsetParent.className === 'employee-menu' ) {
+        return;
+      }
+      this.isExpand = !this.isExpand;
   }
 }
