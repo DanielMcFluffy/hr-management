@@ -119,6 +119,8 @@ sidebar-button {
 
     &.expanded {
 
+
+
         .employee-menu  {
                 transform: translateX(0%);
                 position: static;
@@ -129,17 +131,33 @@ sidebar-button {
 }
 
 
-li {
-    list-style-type: none;
+ul {
 
-    &:hover {
-        .button-text-container {
-            color: typography.$font-color-primary;
+    @media screen and (max-width: 1000px){
+        padding: 0 0 0 5px;
+
+        .employee-button {
+            width: 140%;
+            font-size: 0.7rem;
         }
     }
 
-  }
+    li {
+        list-style-type: none;
+    
+        &:hover {
+            pointer-events: fill;
+            .button-text-container {
+                color: typography.$font-color-primary;
+            }
+        }
+    
+      }
+}
 
   
+.button-text {
+    padding: 0 1rem 0 0;
+}
 
 

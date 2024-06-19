@@ -7,6 +7,13 @@ import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.co
 import { AdminPermissionGroupComponent } from './admin/admin-permission-group/admin-permission-group.component';
 import { AdminDetailComponent } from './admin/admin-accounts/admin-detail/admin-detail.component';
 import { DashboardContainerComponent } from './containers/dashboard-container/dashboard-container.component';
+import { AdminEmployeeComponent } from './admin/admin-employee/admin-employee.component';
+import { AdminEmployeeDepartmentComponent } from './admin/admin-employee/admin-employee-department/admin-employee-department.component';
+import { AdminEmployeeAttendanceComponent } from './admin/admin-employee/admin-employee-attendance/admin-employee-attendance.component';
+import { AdminEmployeePayrollComponent } from './admin/admin-employee/admin-employee-payroll/admin-employee-payroll.component';
+import { AdminProjectsComponent } from './admin/admin-projects/admin-projects.component';
+import { AdminScheduleComponent } from './admin/admin-schedule/admin-schedule.component';
+import { AdminLeaveComponent } from './admin/admin-leave/admin-leave.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +29,18 @@ export const routes: Routes = [
       { path: 'accounts', component: AdminAccountsComponent },
       { path: 'accounts/:id', component: AdminDetailComponent },
       { path: 'permissionGroup', component: AdminPermissionGroupComponent },
+      { path: 'employee', component: AdminEmployeeComponent, 
+        children: [
+          { path: 'department', component: AdminEmployeeDepartmentComponent, pathMatch: 'full' },
+          { path: 'attendance', component: AdminEmployeeAttendanceComponent },
+          { path: 'payroll', component: AdminEmployeePayrollComponent },
+        ]
+       },
+      { path: 'projects', component: AdminProjectsComponent },
+      { path: 'schedule', component: AdminScheduleComponent },
+      { path: 'leave', component: AdminLeaveComponent },
+
+
     ],
   },
   //layout route for employee

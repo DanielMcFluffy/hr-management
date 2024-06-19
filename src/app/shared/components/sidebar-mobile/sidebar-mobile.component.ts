@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { SidebarMobileToolbarService } from '../../services/sidebar-mobile-toolbar.service';
 
 @Component({
   selector: 'sidebar-mobile',
@@ -13,5 +14,11 @@ import { RouterModule } from '@angular/router';
 export class SidebarMobileComponent {
 
 @Input() isOpen = false;
+
+constructor(
+  public MobileToolbarService: SidebarMobileToolbarService
+) {
+
+}
 
 }

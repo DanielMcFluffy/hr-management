@@ -15,7 +15,7 @@
   <div class="utilities">
     <!-- mat-fab extended
             if you want to add text next to icon -->
-    <img src="../../../../assets/HRtransparent.png" alt="logo">
+    <img [routerLink]="isAdmin ? ['/admin/dashboard/home'] : '' " src="../../../../assets/HRtransparent.png" alt="logo">
     <div>
       <search-bar></search-bar>
     </div>
@@ -54,7 +54,7 @@
 <div class="toolbar-content-mobile">
   <div class="search-bar-mobile">search</div>
 
-  <div class="page-mobile">page</div>
+  <div class="page-mobile">{{currentPage$ | async}}</div>
 
   <div class="profile-mobile">
     <button mat-icon-button>

@@ -2,20 +2,22 @@
 
     <div class="main">
 
-              <sidebar-button [isOpen]="isOpen" [iconName]="'space_dashboard'" [label]="'Dashboard'"></sidebar-button>
+              <sidebar-button [routerLink]="['home']" [isOpen]="isOpen" [iconName]="'space_dashboard'" [label]="'Dashboard'"></sidebar-button>
 
-              <sidebar-button [isOpen]="isOpen" [iconName]="'admin_panel_settings'" [label]="'Admin Panel'"></sidebar-button>
+              <sidebar-button [routerLink]="['accounts']" [isOpen]="isOpen" [iconName]="'admin_panel_settings'" [label]="'Admin Panel'"></sidebar-button>
 
-              <sidebar-button [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
+              <sidebar-button [routerLink]="['permissionGroup']" [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
 
-              <sidebar-button (click)="expandButton($event)" 
+              <sidebar-button [routerLink]="['employee']" (click)="expandButton($event)" 
               [ngClass]="isExpand ? 'expanded' : '' "
                [isOpen]="isOpen" [iconName]="'groups'" [label]="'Employees'">
 
                 <div class="employee-menu" [ngStyle]="{'display': !isOpen ? 'none' : (isOpen ? 'block' : null) }" >
                         <ul>
-                            <li>
-                                <button  >
+                            <li >
+                                <button 
+                                [routerLink]="'employee/department'"
+                                (click)="stopPropogation($event)"  >
                                     <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">reduce_capacity</mat-icon> 
@@ -30,7 +32,8 @@
                                   </button>
                             </li>
                             <li>
-                                <button  >
+                                <button 
+                                [routerLink]="'employee/attendance'" (click)="stopPropogation($event)"  >
                                     <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">edit_calendar</mat-icon> 
@@ -45,7 +48,8 @@
                                   </button>
                             </li>
                             <li>
-                                <button  >
+                                <button 
+                                [routerLink]="'employee/payroll'"(click)="stopPropogation($event)">
                                     <div class="employee-button button-text-container">
                                         <div>
                                             <mat-icon fontSet="material-icons-outlined">contact_mail</mat-icon> 
@@ -65,11 +69,11 @@
 
               </sidebar-button>
 
-              <sidebar-button [isOpen]="isOpen" [iconName]="'topic'" [label]="'Projects'"></sidebar-button>
+              <sidebar-button [routerLink]="['projects']" [isOpen]="isOpen" [iconName]="'topic'" [label]="'Projects'"></sidebar-button>
 
-              <sidebar-button [isOpen]="isOpen" [iconName]="'punch_clock'" [label]="'Schedule'"></sidebar-button>
+              <sidebar-button [routerLink]="['schedule']" [isOpen]="isOpen" [iconName]="'punch_clock'" [label]="'Schedule'"></sidebar-button>
               
-              <sidebar-button [isOpen]="isOpen" [iconName]="'free_cancellation'" [label]="'Leave'"></sidebar-button>
+              <sidebar-button [routerLink]="['leave']" [isOpen]="isOpen" [iconName]="'free_cancellation'" [label]="'Leave'"></sidebar-button>
 
     </div>
 
