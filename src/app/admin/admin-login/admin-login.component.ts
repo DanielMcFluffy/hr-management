@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, signal } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule, NgForm,  ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthStoreService } from '../../shared/services/auth-store.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -23,7 +24,12 @@ import { Router } from '@angular/router';
   templateUrl: './admin-login.component.html',
   styleUrl: './admin-login.component.scss'
 })
-export class AdminLoginComponent {
+export class AdminLoginComponent implements OnInit{
+
+
+  ngOnInit(): void {
+  }
+
   //hide password property and methods
   hide = true;
   clickEvent(event: MouseEvent) {
@@ -35,14 +41,15 @@ export class AdminLoginComponent {
   //access form data 
   @ViewChild('form') form!: NgForm;
 
-showSuccessMessage = false;
+showSuccessMessage = false; //message service pending
 
 //form data
-  email = '';
+  username = '';
   password = '';
 
   constructor(
     private router: Router,
+    private authStore: AuthStoreService
   ) {
   }
 
@@ -57,11 +64,9 @@ showSuccessMessage = false;
 
 
       //if login successful redirect to admin dashboard
-      this.showSuccessMessage = true;
+      this.authStore.login(this.username, this.password);
+      this.showSuccessMessage = true; // TODO: implement message service
       this.form.resetForm();
-      setTimeout(() => {
-        this.router.navigate(['/admin/dashboard']);
-      }, 2000);
     }
 
   }

@@ -1,17 +1,29 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { 
+  Observable,
+  Subscription,
+  catchError, map, shareReplay, throwError } from 'rxjs';
 import { User } from '../../models/user';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStoreService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
+  
+  private API_URL = 'https://localhost:7022'
 
-  private subject = new BehaviorSubject<User | null>(null);
-
-  user$ = this.subject.asObservable();
+  //user store
+  private _user = signal<User | null>(null);
+  user = this._user.asReadonly();
+  user$ = toObservable(this._user); 
 
   isLoggedIn$ = this.user$.pipe(
     catchError(err => {
@@ -24,15 +36,27 @@ export class AuthStoreService {
   
   isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
 
-  login(email: string, password: string) {
+  login(username: string, password: string): Subscription {
     //call the api to login
-    //
-    //set the user in the subject
+    return this.http.post<User>(`${this.API_URL}/api/Account/Login`, {username, password})
+            .pipe(
+              catchError(err => {
+                const message = "Cannot login!";
+                console.log(message, err);
+                return throwError(() => new Error(message));
+              }),
+              shareReplay()
+            ).subscribe(user => {
+              this._user.set(user);
+              setTimeout(() => {
+                this.router.navigate(['/admin/dashboard']);
+              }, 2000);
+            });
     
   }
 
   logout() {
-    this.subject.next(null);
+    this._user.set(null);
   }
 
 }

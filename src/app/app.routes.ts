@@ -14,6 +14,7 @@ import { AdminEmployeePayrollComponent } from './admin/admin-employee/admin-empl
 import { AdminProjectsComponent } from './admin/admin-projects/admin-projects.component';
 import { AdminScheduleComponent } from './admin/admin-schedule/admin-schedule.component';
 import { AdminLeaveComponent } from './admin/admin-leave/admin-leave.component';
+import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: DashboardContainerComponent,
+    canActivate: [adminAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: AdminDashboardComponent },

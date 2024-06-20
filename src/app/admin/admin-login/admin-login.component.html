@@ -16,7 +16,7 @@
                     <!-- both message divs visibility are hidden by default, once they're assigned 'error' or 'success', they will be visible -->
                     <div class="message" 
                     [ngClass]="{'error': form.submitted && form.invalid}" >
-                      Please enter valid email and password
+                      Please enter valid username and password
                     </div>
                 } @else {
                     <div class="message success">
@@ -24,22 +24,24 @@
                     </div>
                 }
 
+                <!-- (ngSubmit)="form.form.valid && submitForm()" -->
             <form
-            (ngSubmit)="form.form.valid && submitForm()"
+            (ngSubmit)="submitForm()"
             #form="ngForm">
             <mat-card-content ngModelGroup="login"
             >
                 <div>
                     <mat-form-field>
-                        <mat-label>Enter your email</mat-label>
+                        <mat-label>Enter your username</mat-label>
                         <input
                             ngModel
-                            required email
-                            name="email" 
-                            [(ngModel)]="email"
+                            required
+                            name="username" 
+                            [(ngModel)]="username"
                             matInput [type]="'text'">
                       </mat-form-field>
                 </div>
+
                 <div>
                     <mat-form-field>
                         <mat-label>Enter your password</mat-label>
