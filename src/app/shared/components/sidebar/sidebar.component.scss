@@ -4,11 +4,11 @@
 
 .sidebar-container {
     @include positioning.flex-column;
-    align-items: center; //disable this when sidebar opens
+    align-items: center; 
     height: 100%;
     padding: 1rem 0.5rem 1rem 0.5rem;;
     position: relative;
-    overflow: visible; // Ensure overflow content is visible
+    overflow: visible; 
 
     //targeting the direct children of sidebar-container
     > * {
@@ -60,8 +60,8 @@
                 .button-text {
                     margin: 4px 0 0 0;
                     display: inline-block; // Ensures the span behaves like a block element for width purposes
-                    width: 100px; // Adjust based on the maximum expected text width
-                    transition: opacity 0.3s ease-in-out; // Smooth transition for opacity change
+                    width: 100px; 
+                    transition: opacity 0.3s ease-in-out; 
                 }
             }
 
@@ -102,7 +102,6 @@ sidebar-button {
 
     .employee-menu  {
         @include positioning.flex-column;
-        // background-color: color.$background-color-dark;
         gap:5px;
         border-radius: 7px;
         height: 120%;
@@ -119,15 +118,12 @@ sidebar-button {
 
     &.expanded {
 
-
-
         .employee-menu  {
                 transform: translateX(0%);
                 position: static;
                 opacity: 1;
         }
     }
-
 }
 
 

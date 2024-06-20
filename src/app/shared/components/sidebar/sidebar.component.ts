@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SidebarButtonComponent } from './sidebar-button/sidebar-button.component';
-import {   NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter } from 'rxjs';
+import {   ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'sidebar',
@@ -20,7 +19,7 @@ export class SidebarComponent {
   @Input() isExpand = false;
 
   constructor(
-    private router: Router
+    private route: ActivatedRoute
   ) {
     
   }
@@ -35,21 +34,21 @@ export class SidebarComponent {
 
   expandButton($event: MouseEvent | any) {
 
-      // console.log($event.target.offsetParent.className);
+
       if ($event.target.offsetParent.className === 'employee-menu' ) {
         return;
       }
-
-      // this.router.events.pipe(
-      //   filter(event => event instanceof NavigationEnd)
-      // ).subscribe((event: any) => {
-      //   const url = event.url as string;
-      //   if (url.includes('employee')) {
-      //     console.log(url);
-      //   }
-      // });
-      this.isExpand = !this.isExpand;
-      
+      //window.location.href will return the absolute URL of the current page
+      if (!window.location.href.includes('employee') && !this.isExpand) { 
+        this.isExpand = true;
+        return;
+      } else if (window.location.href.includes('employee') && this.isExpand) {
+        this.isExpand = false;
+        return;
+      } else if (window.location.href.includes('employee') && !this.isExpand) {
+        this.isExpand = true;
+        return;
+      }
   }
 
   //stop propogation of event from child button to parent button (which will trigger a page redirect in this case)
