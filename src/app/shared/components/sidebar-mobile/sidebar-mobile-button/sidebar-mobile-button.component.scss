@@ -1,0 +1,15 @@
+@use '../../../../styles/typography';
+
+button {
+    color: typography.$font-color-primary;
+    transition: background-color 0.3s ease;
+    border-style: none;
+    border-radius: 10px;
+    width: 100%;
+    background-color: transparent;
+
+    &:hover {
+        background-color: #f0f0f0; 
+        color: typography.$font-color-secondary;
+    }
+}

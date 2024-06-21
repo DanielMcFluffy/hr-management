@@ -10,7 +10,7 @@ export interface Admin {
     isLogin: boolean;
     lastLogin: any;
     refreshToken: string;
-    expiredDuration: string;
+    refreshTokenExpiry: string;
     id: {
         timestamp: number;
         machine: number;

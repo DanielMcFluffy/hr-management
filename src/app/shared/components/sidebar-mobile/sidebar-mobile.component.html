@@ -1,80 +1,54 @@
 <div class="sidebar-mobile-container">
 
-    <button (click)="MobileToolbarService.setPage('Dashboard')"  [routerLink]="['home']"  >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">space_dashboard</mat-icon> 
-            </div>
+      <sidebar-mobile-button
+      [pageLabel]="'Dashboard'"
+      [label]="'Dashboard'"
+      [iconName]="'space_dashboard'"
+      [routerLink]="isSuperAdmin ? ['superadmin'] : ['admin']"
+      ></sidebar-mobile-button>
 
-                <div>
-                    <span class="button-text">Dashboard</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Admin Panel')"  [routerLink]="['accounts']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">admin_panel_settings</mat-icon> 
-            </div>
+      @if(isSuperAdmin) {
+          <sidebar-mobile-button
+          [pageLabel]="'Admin Panel'"
+          [label]="'Admin Panel'"
+          [iconName]="'admin_panel_settings'"
+          [routerLink]="['superadmin/accounts']" 
+          ></sidebar-mobile-button>
+    
+          <sidebar-mobile-button
+          [pageLabel]="'Permissions'"
+          [label]="'Permissions'"
+          [iconName]="'badge'"
+          [routerLink]="['superadmin/permissionGroup']" 
+          ></sidebar-mobile-button>
+      }
 
-                <div>
-                    <span class="button-text">Admin Panel</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Permissions')"  [routerLink]="['permissionGroup']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">badge</mat-icon> 
-            </div>
+      <sidebar-mobile-button
+      [pageLabel]="'Employee'"
+      [label]="'Employees'"
+      [iconName]="'groups'"
+      [routerLink]="['employee']"  
+      ></sidebar-mobile-button>
 
-                <div>
-                    <span  class="button-text">Permissions</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Employee')"  [routerLink]="['employee']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">groups</mat-icon> 
-            </div>
+      <sidebar-mobile-button
+      [pageLabel]="'Projects'"
+      [label]="'Projects'"
+      [iconName]="'topic'"
+      [routerLink]="['projects']"  
+      ></sidebar-mobile-button>
 
-                <div>
-                    <span  class="button-text">Employees</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Projects')"  [routerLink]="['projects']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">topic</mat-icon> 
-            </div>
+      <sidebar-mobile-button
+      [pageLabel]="'Schedule'"
+      [label]="'Schedule'"
+      [iconName]="'punch_clock'"
+      [routerLink]="['schedule']"  
+      ></sidebar-mobile-button>
 
-                <div>
-                    <span  class="button-text">Projects</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Schedule')"  [routerLink]="['schedule']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">punch_clock</mat-icon> 
-            </div>
+      <sidebar-mobile-button
+      [pageLabel]="'Leave'"
+      [label]="'Leave'"
+      [iconName]="'free_cancellation'"
+      [routerLink]="['leave']"  
+      ></sidebar-mobile-button>
 
-                <div>
-                    <span  class="button-text">Schedule</span>
-                </div>
-        </div>
-      </button>
-      <button (click)="MobileToolbarService.setPage('Leave')" [routerLink]="['leave']" >
-        <div >
-            <div>
-                <mat-icon fontSet="material-icons-outlined">free_cancellation</mat-icon> 
-            </div>
-
-                <div>
-                    <span  class="button-text">Leave</span>
-                </div>
-        </div>
-      </button>
 </div>

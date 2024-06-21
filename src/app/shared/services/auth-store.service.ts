@@ -49,10 +49,12 @@ export class AuthStoreService {
             ).subscribe(user => {
               this._user.set(user);
               setTimeout(() => {
-                this.user()?.admin.isSuperAdmin ? 
-                this.router.navigate(['/superadmin/dashboard']) :
-                this.router.navigate(['/admin/dashboard']);
+                // this.user()?.admin.isSuperAdmin ? 
+                // this.router.navigate(['/superadmin/dashboard']) :
+                // this.router.navigate(['/admin/dashboard']);
+                this.router.navigate(['/dashboard']);
               }, 2000);
+              console.log({"expired": new Date(`${this.user()?.admin.refreshTokenExpiry}`)})
             });
     
   }
