@@ -5,10 +5,10 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-admin-detail',
   standalone: true,
   imports: [],
-  templateUrl: './admin-detail.component.html',
-  styleUrl: './admin-detail.component.scss'
+  templateUrl: './super-admin-admin-detail.component.html',
+  styleUrl: './super-admin-admin-detail.component.scss'
 })
-export class AdminDetailComponent {
+export class SuperAdminAdminDetailComponent {
   constructor(
     private route: ActivatedRoute
   ) {}

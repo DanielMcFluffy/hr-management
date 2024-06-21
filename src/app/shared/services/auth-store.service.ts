@@ -49,6 +49,8 @@ export class AuthStoreService {
             ).subscribe(user => {
               this._user.set(user);
               setTimeout(() => {
+                this.user()?.admin.isSuperAdmin ? 
+                this.router.navigate(['/superadmin/dashboard']) :
                 this.router.navigate(['/admin/dashboard']);
               }, 2000);
             });

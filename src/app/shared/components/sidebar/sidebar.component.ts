@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SidebarButtonComponent } from './sidebar-button/sidebar-button.component';
 import {   ActivatedRoute, RouterModule } from '@angular/router';
+import { AuthStoreService } from '../../services/auth-store.service';
 
 @Component({
   selector: 'sidebar',
@@ -17,11 +18,13 @@ export class SidebarComponent {
   @Output() isOpen$ = new EventEmitter<boolean>();
   @Input() isOpen = false;
   @Input() isExpand = false;
+  isSuperAdmin!: boolean;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authStore: AuthStoreService
   ) {
-    
+    this.isSuperAdmin = this.authStore.user()?.admin.isSuperAdmin || false;
   }
 
   openSidebar() {

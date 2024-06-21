@@ -1,13 +1,18 @@
 <div class="sidebar-container" [ngClass]="isOpen ? 'active' : ''">
 
     <div class="main">
-
-              <sidebar-button [routerLink]="['home']" [isOpen]="isOpen" [iconName]="'space_dashboard'" [label]="'Dashboard'"></sidebar-button>
-
-              <sidebar-button [routerLink]="['accounts']" [isOpen]="isOpen" [iconName]="'admin_panel_settings'" [label]="'Admin Panel'"></sidebar-button>
-
-              <sidebar-button [routerLink]="['permissionGroup']" [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
-
+              <sidebar-button
+               [routerLink]="isSuperAdmin ? ['/superadmin/dashboard'] : ['/admin/dashboard']" 
+               [isOpen]="isOpen" [iconName]="'space_dashboard'" 
+               [label]="'Dashboard'"></sidebar-button>
+              <!-- if user is superadmin, render these -->
+              @if (isSuperAdmin) {
+                  
+                    <sidebar-button [routerLink]="['accounts']" [isOpen]="isOpen" [iconName]="'admin_panel_settings'" [label]="'Admin Panel'"></sidebar-button>
+      
+                    <sidebar-button [routerLink]="['permissionGroup']" [isOpen]="isOpen" [iconName]="'badge'" [label]="'Permissions'"></sidebar-button>
+            }
+                
               <sidebar-button [routerLink]="['employee']" (click)="expandButton($event)" 
               [ngClass]="isExpand ? 'expanded' : '' "
                [isOpen]="isOpen" [iconName]="'groups'" [label]="'Employees'">
