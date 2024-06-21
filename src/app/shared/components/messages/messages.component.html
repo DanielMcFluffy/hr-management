@@ -1,0 +1,6 @@
+
+@if (messageService.showMessage$ | async) {
+    <div class="message-block">
+        {{messageService._message()}}
+    </div>
+}

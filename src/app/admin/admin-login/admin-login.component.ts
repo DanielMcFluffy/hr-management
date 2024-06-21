@@ -6,8 +6,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, NgForm,  ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { AuthStoreService } from '../../shared/services/auth-store.service';
+import { MessagesComponent } from '../../shared/components/messages/messages.component';
 
 @Component({
   selector: 'app-admin-login',
@@ -20,7 +20,9 @@ import { AuthStoreService } from '../../shared/services/auth-store.service';
     MatInputModule, 
     ReactiveFormsModule,
     FormsModule,
-    CommonModule ],
+    CommonModule,
+    MessagesComponent
+   ],
   templateUrl: './admin-login.component.html',
   styleUrl: './admin-login.component.scss'
 })
@@ -48,8 +50,7 @@ showSuccessMessage = false; //message service pending
   password = '';
 
   constructor(
-    private router: Router,
-    private authStore: AuthStoreService
+    private authStore: AuthStoreService,
   ) {
   }
 
@@ -65,7 +66,7 @@ showSuccessMessage = false; //message service pending
 
       //if login successful redirect to admin dashboard
       this.authStore.login(this.username, this.password);
-      this.showSuccessMessage = true; // TODO: implement message service
+      // this.showSuccessMessage = true; // TODO: implement message service
       this.form.resetForm();
     }
 

@@ -1,12 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 import { 
-  Observable,
   Subscription,
   catchError, map, shareReplay, throwError } from 'rxjs';
 import { User } from '../../models/user';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MessageService } from '../components/messages/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class AuthStoreService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
   
   private API_URL = 'https://localhost:7022'
@@ -42,12 +43,14 @@ export class AuthStoreService {
             .pipe(
               catchError(err => {
                 const message = "Cannot login!";
+                this.messageService.setMessage(message); //side effect
                 console.log(message, err);
                 return throwError(() => new Error(message));
               }),
               shareReplay()
             ).subscribe(user => {
               this._user.set(user);
+              this.messageService.setMessage('Login successful!');
               setTimeout(() => {
                 // this.user()?.admin.isSuperAdmin ? 
                 // this.router.navigate(['/superadmin/dashboard']) :
@@ -56,7 +59,6 @@ export class AuthStoreService {
               }, 2000);
               console.log({"expired": new Date(`${this.user()?.admin.refreshTokenExpiry}`)})
             });
-    
   }
 
   logout() {

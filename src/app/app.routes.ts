@@ -9,10 +9,10 @@ import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'admin/login', component: AdminLoginComponent },
+  { path: 'admin/login', component: AdminLoginComponent,
+   },
 
 
-  //layout route for both
   {path: 'dashboard', loadComponent: () => import('./containers/dashboard-container/dashboard-container.component').then(c => c.DashboardContainerComponent),
     children: [
       {path: '', redirectTo: 'superadmin', pathMatch: 'full'},

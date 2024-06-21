@@ -1,16 +1,15 @@
 
 <div class="admin-login-container">
-    <!-- <div class="header">header</div> -->
-    
     <div class="login-form-container">
         <mat-card  >
             <!-- <div class="logo-container"> -->
                 <img src="../../../assets/HRtransparent.png" alt="logo" class="logo">
             <!-- </div> -->
             <mat-card-header>
-              <mat-card-title>Login to your account </mat-card-title>
-              </mat-card-header>
-
+                <mat-card-title>Login to your account </mat-card-title>
+            </mat-card-header>
+            
+            <messages></messages>    
               <!-- showSuccessMessage ensures only one message block is shown at one time -->
                 @if (!showSuccessMessage) {
                     <!-- both message divs visibility are hidden by default, once they're assigned 'error' or 'success', they will be visible -->
@@ -26,7 +25,7 @@
 
                 <!-- (ngSubmit)="form.form.valid && submitForm()" -->
             <form
-            (ngSubmit)="submitForm()"
+            (ngSubmit)="form.form.valid && submitForm()"
             #form="ngForm">
             <mat-card-content ngModelGroup="login"
             >
