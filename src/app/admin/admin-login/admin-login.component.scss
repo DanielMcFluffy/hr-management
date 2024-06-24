@@ -47,3 +47,16 @@ mat-card-title {
 mat-form-field {
     width: 100%;
 }
+
+.banner {
+    @include positioning.flex-row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: color.$primary-color;
+
+    h1 {
+        color: typography.$font-color-primary;
+        margin: 0;
+    }
+}

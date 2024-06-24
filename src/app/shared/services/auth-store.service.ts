@@ -6,7 +6,6 @@ import {
 import { User } from '../../models/user';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,6 @@ export class AuthStoreService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
   ) { }
   
   private API_URL = 'https://localhost:7022'
@@ -41,7 +39,6 @@ export class AuthStoreService {
     return this.http.post<User>(`${this.API_URL}/api/Account/Login`, {username, password})
             .pipe(
               catchError(err => {
-                // const message = "Can
                 console.log(err);
                 return throwError(() => new Error(err.error));
               }),
