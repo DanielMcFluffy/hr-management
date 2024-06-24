@@ -48,15 +48,35 @@ mat-form-field {
     width: 100%;
 }
 
+mat-card-subtitle {
+    text-align: end;
+    font-size: small;
+
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 .banner {
     @include positioning.flex-row;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: color.$primary-color;
+    background-color: color.$secondary-color;
 
-    h1 {
+    .banner-brand {
         color: typography.$font-color-primary;
         margin: 0;
     }
+
+    .banner-time {
+        background-color: white;
+        padding: 0.8rem;
+        border-radius: 10px;
+        color: typography.$font-color-secondary;
+    }
+
 }

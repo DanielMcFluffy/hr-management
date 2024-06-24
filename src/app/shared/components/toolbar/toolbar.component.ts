@@ -5,7 +5,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { AsyncPipe } from '@angular/common';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { Observable } from 'rxjs';
-import { SidebarMobileToolbarService } from '../../services/sidebar-mobile-toolbar.service';
+import { SidebarMobileToolbarService } from '../../../services/sidebar-mobile-toolbar.service';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'toolbar',

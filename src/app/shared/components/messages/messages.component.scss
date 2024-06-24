@@ -1,14 +1,15 @@
 @use '../../../styles/positioning';
+@use '../../../styles/typography';
 
 .message-block {
     @include positioning.centering;
 
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 0;
     right: 0;
     width: 100%;
-    height: 2.5rem;
+    height: 4rem;
     border-radius: 5px;
 
     &.success {
@@ -17,6 +18,13 @@
 
     &.error {
         background-color: #ed4337;
+    }
+
+    button {
+        position: absolute;
+        right:0;
+        top: 0;
+        color: typography.$font-color-primary
     }
 
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { SidebarMobileToolbarService } from '../../../services/sidebar-mobile-toolbar.service';
+import { SidebarMobileToolbarService } from '../../../../services/sidebar-mobile-toolbar.service';
 
 @Component({
   selector: 'sidebar-mobile-button',

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, signal } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -6,10 +6,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, NgForm,  ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthStoreService } from '../../shared/services/auth-store.service';
 import { MessagesComponent } from '../../shared/components/messages/messages.component';
 import { MessageService } from '../../shared/components/messages/message.service';
 import { Router } from '@angular/router';
+import { AuthStoreService } from '../../services/auth/auth-store.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -51,11 +51,21 @@ export class AdminLoginComponent implements OnInit{
   username = '';
   password = '';
 
+  time!: Date;
+
+
   constructor(
     private authStore: AuthStoreService,
     private messageService: MessageService,
     private router: Router
   ) {
+    this.runClock();
+  }
+
+  runClock() {
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
   }
 
 

@@ -1,9 +1,11 @@
+import { Permission } from "./permission";
+
 export interface Admin {
     username: string;
     password: string;
     email: string;
     isSuperAdmin: boolean;
-    permission: any;
+    permission: Permission[]; // the length here is 1
     loginAttempts: number;
     isLocked: boolean;
     lockoutEnd: any;
@@ -11,13 +13,9 @@ export interface Admin {
     lastLogin: any;
     refreshToken: string;
     refreshTokenExpiry: string;
-    id: {
-        timestamp: number;
-        machine: number;
-        pid: number;
-        increment: number;
-        creationTime: string;
-    },
     created_at: string;
     updated_at: string;
+
+    [resouces: string]: any;
+
 }

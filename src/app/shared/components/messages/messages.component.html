@@ -1,7 +1,11 @@
 @if (messageService.showMessage$ | async) {
 
     <div class="message-block" [ngClass]="messageService.isSuccessful ? 'success' : 'error'">
-        {{messageService._message()}}
+        {{messageService._message()}} 
+
+        <button (click)="messageService.setMessage('', false)" mat-icon-button>
+            <mat-icon>close</mat-icon>
+         </button>
     </div>
 
 }

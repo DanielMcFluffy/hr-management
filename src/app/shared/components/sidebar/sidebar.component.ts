@@ -4,8 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SidebarButtonComponent } from './sidebar-button/sidebar-button.component';
 import {   ActivatedRoute, RouterModule } from '@angular/router';
-import { AuthStoreService } from '../../services/auth-store.service';
-
+import { AuthStoreService } from '../../../services/auth/auth-store.service';
 @Component({
   selector: 'sidebar',
   standalone: true,

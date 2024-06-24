@@ -1,23 +1,26 @@
 import { Injectable, signal } from '@angular/core';
 import { 
   Observable,
-  Subscription,
-  catchError, map, shareReplay, tap, throwError } from 'rxjs';
-import { User } from '../../models/user';
+  catchError, map, tap, throwError } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { HttpClient } from '@angular/common/http';
+import { AuthHttpService } from './auth.http.services';
+import { User } from '../../models/user';
+import { TokenService } from '../token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStoreService {
 
+  //TODO: get user data only from the token's session storage
+  //extract out objectId from the token
+  //get the user data from the api based on objectId (super-admin service)
+
   constructor(
-    private http: HttpClient,
+    private tokenService: TokenService,
+    private authHttp: AuthHttpService,
   ) { }
   
-  private API_URL = 'https://localhost:7022'
-
   //user store
   private _user = signal<User | null>(null);
   user = this._user.asReadonly();
@@ -36,18 +39,22 @@ export class AuthStoreService {
 
   login(username: string, password: string): Observable<User> {
     //call the api to login
-    return this.http.post<User>(`${this.API_URL}/api/Account/Login`, {username, password})
+    return this.authHttp.login_POST(username, password)
             .pipe(
               catchError(err => {
                 console.log(err);
                 return throwError(() => new Error(err.error));
               }),
-              tap(user => this._user.set(user))
+              tap(user => {
+                this._user.set(user);
+                this.tokenService.setToken(user.token.result.token);
+              })
             )
   }
 
   logout() {
     this._user.set(null);
+    this.tokenService.removeToken();
   }
 
 }

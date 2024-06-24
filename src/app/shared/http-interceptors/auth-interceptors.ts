@@ -5,8 +5,7 @@ import {
   } from '@angular/common/http';
 import { inject } from '@angular/core';
   import { Observable } from 'rxjs';
-import { AuthStoreService } from '../services/auth-store.service';
-  
+import { AuthStoreService } from '../../services/auth/auth-store.service';
 
   export function AuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     
