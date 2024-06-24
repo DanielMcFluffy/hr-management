@@ -1,0 +1,22 @@
+@use '../../../styles/positioning';
+
+.message-block {
+    @include positioning.centering;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 5px;
+
+    &.success {
+        background-color: #5cb85c;
+    }
+
+    &.error {
+        background-color: #ed4337;
+    }
+
+}

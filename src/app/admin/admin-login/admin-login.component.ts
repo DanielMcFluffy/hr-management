@@ -8,6 +8,8 @@ import { FormsModule, NgForm,  ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthStoreService } from '../../shared/services/auth-store.service';
 import { MessagesComponent } from '../../shared/components/messages/messages.component';
+import { MessageService } from '../../shared/components/messages/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-login',
@@ -23,6 +25,7 @@ import { MessagesComponent } from '../../shared/components/messages/messages.com
     CommonModule,
     MessagesComponent
    ],
+   providers: [MessageService],
   templateUrl: './admin-login.component.html',
   styleUrl: './admin-login.component.scss'
 })
@@ -43,7 +46,6 @@ export class AdminLoginComponent implements OnInit{
   //access form data 
   @ViewChild('form') form!: NgForm;
 
-showSuccessMessage = false; //message service pending
 
 //form data
   username = '';
@@ -51,22 +53,32 @@ showSuccessMessage = false; //message service pending
 
   constructor(
     private authStore: AuthStoreService,
+    private messageService: MessageService,
+    private router: Router
   ) {
   }
+
 
   //view form data
   submitForm() {
     console.log(this.form);
     if (this.form.valid) {
-      //trigger send data to server
-      //if response is 200 redirect to admin dashboard while including a success message
-      //if request is unsuccessful display error message (500)
-      //if response is 400 display error message
 
-
-      //if login successful redirect to admin dashboard
-      this.authStore.login(this.username, this.password);
-      // this.showSuccessMessage = true; // TODO: implement message service
+      this.authStore.login(this.username, this.password)
+      .subscribe({
+        next: user => {
+          this.messageService.setMessage('Login successful!', true);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 2000);
+          console.log({"expired": new Date(`${this.authStore.user()?.admin.refreshTokenExpiry}`)})
+        },
+        error: err => {
+          this.messageService.setMessage(err.message, false);
+          console.log(err);
+        }
+      
+      } );
       this.form.resetForm();
     }
 

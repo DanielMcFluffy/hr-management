@@ -31,10 +31,12 @@ img {
 mat-card {
     padding: 2rem 1rem 2rem 1rem;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 mat-card-header {
     justify-content: center;
+    margin: 0 0 2rem 0; //space for the message block
 }
 
 mat-card-title {
@@ -44,22 +46,4 @@ mat-card-title {
 
 mat-form-field {
     width: 100%;
-}
-
-.message {
-    visibility: hidden;
-
-    &.error {
-        visibility: visible;
-        @include message-alert.error-message;
-    }
-
-    &.success {
-        visibility: visible;
-        @include message-alert.success-message;
-    }
-}
-
-messages {
-    position: absolute;
 }

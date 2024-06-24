@@ -8,22 +8,8 @@
             <mat-card-header>
                 <mat-card-title>Login to your account </mat-card-title>
             </mat-card-header>
-            
-            <messages></messages>    
-              <!-- showSuccessMessage ensures only one message block is shown at one time -->
-                @if (!showSuccessMessage) {
-                    <!-- both message divs visibility are hidden by default, once they're assigned 'error' or 'success', they will be visible -->
-                    <div class="message" 
-                    [ngClass]="{'error': form.submitted && form.invalid}" >
-                      Please enter valid username and password
-                    </div>
-                } @else {
-                    <div class="message success">
-                      Welcome back! Redirecting to admin dashboard...
-                    </div>
-                }
 
-                <!-- (ngSubmit)="form.form.valid && submitForm()" -->
+            <messages></messages>    
             <form
             (ngSubmit)="form.form.valid && submitForm()"
             #form="ngForm">
