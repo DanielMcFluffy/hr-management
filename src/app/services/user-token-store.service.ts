@@ -1,18 +1,36 @@
 import { Injectable } from "@angular/core";
 import { jwtDecode } from 'jwt-decode';
+import { TokenPayload } from "../models/token";
+import { User } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class TokenService {
+export class UserTokenStoreService {
+
+    constructor(
+    ) {}
+
+    getUser(): User {
+        const user = sessionStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
+    }
+
+    storeUser(user: User) {
+        sessionStorage.setItem('user', JSON.stringify(user));
+    }
+
+    clearUser() {
+        sessionStorage.removeItem('user');
+    }
     
-    decodeToken(token: string): any {
+    decodeToken(token: string): TokenPayload {
         return jwtDecode(token);
     }
 
     getToken(): string {
-        return sessionStorage.getItem('token') ?? 'No token found';
+        return sessionStorage.getItem('token') ?? '';
     }
 
     setToken(token: string): void {

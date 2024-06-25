@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from '../../shared/components/toolbar/toolbar.component';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
@@ -18,7 +18,7 @@ import { SidebarMobileComponent } from '../../shared/components/sidebar-mobile/s
   templateUrl: './dashboard-container.component.html',
   styleUrl: './dashboard-container.component.scss',
 })
-export class DashboardContainerComponent {
+export class DashboardContainerComponent implements OnInit {
   isOpen = true;
   mobileIsOpen = false;
   private readonly minWidth = 976;
@@ -30,8 +30,13 @@ export class DashboardContainerComponent {
     this.adjustSidebarOnResize(event.target.innerWidth);
   }
 
-  constructor() {
+  constructor(
+  ) {
+  }
+  
+  ngOnInit(): void {
     this.adjustSidebarOnResize(window.innerWidth);
+
   }
 
   private adjustSidebarOnResize(width: number) {
@@ -47,4 +52,5 @@ export class DashboardContainerComponent {
   checkOpen(event: boolean) {
     this.mobileIsOpen = event;
   }
+
 }

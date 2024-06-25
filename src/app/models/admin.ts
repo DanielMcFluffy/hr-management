@@ -5,12 +5,12 @@ export interface Admin {
     password: string;
     email: string;
     isSuperAdmin: boolean;
-    permission: Permission[]; // the length here is 1
+    permission: Permission[] | null; // the length here is 1
     loginAttempts: number;
     isLocked: boolean;
-    lockoutEnd: any;
+    lockoutEnd?: string;
     isLogin: boolean;
-    lastLogin: any;
+    lastLogin: string;
     refreshToken: string;
     refreshTokenExpiry: string;
     created_at: string;

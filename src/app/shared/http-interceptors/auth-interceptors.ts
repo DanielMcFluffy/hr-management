@@ -5,16 +5,19 @@ import {
   } from '@angular/common/http';
 import { inject } from '@angular/core';
   import { Observable } from 'rxjs';
-import { AuthStoreService } from '../../services/auth/auth-store.service';
+import { UserTokenStoreService } from '../../services/user-token-store.service';
 
   export function AuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    
-    const authStore = inject(AuthStoreService);
-    const user = authStore.user();
+
+    const userTokenStoreService = inject(UserTokenStoreService);
+
+    const token = userTokenStoreService.getToken();
+
+    const user = userTokenStoreService.getUser();
     if (!user) {
       return next(req);
     }
-    const {token} = authStore.user()?.token?.result!; //this will get the token from the user store
+
     console.log(token);
 
       const modifiedReq = req.clone({

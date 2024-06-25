@@ -32,33 +32,33 @@ import { AuthStoreService } from '../../services/auth/auth-store.service';
 export class AdminLoginComponent implements OnInit{
 
 
-  ngOnInit(): void {
-  }
-
+  
   //hide password property and methods
   hide = true;
   clickEvent(event: MouseEvent) {
     this.hide = !this.hide;
     event.stopPropagation();
   }
-
-
+  
+  
   //access form data 
   @ViewChild('form') form!: NgForm;
-
-
-//form data
+  
+  
+  //form data
   username = '';
   password = '';
-
+  
   time!: Date;
-
-
+  
   constructor(
     private authStore: AuthStoreService,
     private messageService: MessageService,
     private router: Router
   ) {
+  }
+  
+  ngOnInit(): void {
     this.runClock();
   }
 

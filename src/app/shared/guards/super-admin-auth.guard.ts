@@ -1,18 +1,16 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { TokenService } from '../../services/token.service';
-import { AuthStoreService } from '../../services/auth/auth-store.service';
+import { UserTokenStoreService } from '../../services/user-token-store.service';
 export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   //get the user from the store
   
-  const tokenService = inject(TokenService);
-  const authStore = inject(AuthStoreService);
+  const userTokenStoreService = inject(UserTokenStoreService);
 
   //get the token from the store(session storage)
-  const token = tokenService.getToken();
+  const token = userTokenStoreService.getToken();
   console.log(token);
-  const decoded = tokenService.decodeToken(token);
+  const decoded = userTokenStoreService.decodeToken(token);
   console.log(decoded);
   const {exp} = decoded;
 
@@ -29,9 +27,10 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   //verify if the user is super admin
   
-  const user = authStore.user();
+  const user = userTokenStoreService.getUser();
 
-  console.log(user?.admin.isSuperAdmin)
+  console.log("user", user);
+  console.log("is user superadmin?", user?.admin.isSuperAdmin)
 
   
   //if not super admin, but is admin, redirect to admin dashboard
