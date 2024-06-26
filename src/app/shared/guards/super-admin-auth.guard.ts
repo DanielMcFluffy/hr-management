@@ -58,7 +58,6 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
           userTokenStoreService.storeUser(user)
         }),
-        //from the new token data, update the admin data(backend) with the new token data
         switchMap((tokenData) => superAdminService.getAdmin(userId).pipe(
             map(
               //transform the admin data to user data

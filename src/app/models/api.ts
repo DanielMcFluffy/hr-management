@@ -6,19 +6,25 @@ export type Api_URL_GET =
 'Employee' |
 'Employee/View/' |
 'Permission' |
-'Permission/View/' 
+'Permission/View/' | 
+'Position' | 
+'Position/View/'  
 
 export type Api_URL_POST =
 'Account/Login' |
+'Account/Logout' |
 'Account/RefreshToken' |
 'Admin/Create' |
 'Admin/Update/' |
 'Employee/Create' |
 'Employee/Update/' |
 'Permission/Create' |
-'Permission/Update/'
+'Permission/Update/' |
+'Position/Create' |
+'Position/Update/' 
 
 export type Api_URL_DELETE = 
 'Admin/' | 
 'Employee/' |
-'Permission/'
+'Permission/'|
+'Position/'

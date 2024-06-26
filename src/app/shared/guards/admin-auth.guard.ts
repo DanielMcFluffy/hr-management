@@ -7,6 +7,8 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   //get the user from the store
   const authStore = inject(AuthStoreService);
 
+  //check if user is of type admin
+
   console.log(authStore.user());
   return true;
 };
