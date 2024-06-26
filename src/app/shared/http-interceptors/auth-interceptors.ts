@@ -12,8 +12,8 @@ import { UserTokenStoreService } from '../../services/user-token-store.service';
     const userTokenStoreService = inject(UserTokenStoreService);
 
     const token = userTokenStoreService.getToken();
-
     const user = userTokenStoreService.getUser();
+
     if (!user) {
       return next(req);
     }

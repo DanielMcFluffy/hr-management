@@ -21,9 +21,9 @@ export class SidebarComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private authStore: AuthStoreService
+    private authStore: AuthStoreService,
   ) {
-    this.isSuperAdmin = this.authStore.user()?.admin.isSuperAdmin || false;
+    this.isSuperAdmin = this.authStore.user()!.admin.isSuperAdmin || false;
   }
 
   openSidebar() {

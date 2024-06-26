@@ -5,9 +5,6 @@ import {
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AuthHttpService } from './auth.http.services';
 import { User } from '../../models/user';
-import { jwtDecode } from 'jwt-decode';
-import { TokenPayload } from '../../models/token';
-import { SuperAdminService } from '../super-admin/super-admin.service';
 import { UserTokenStoreService } from '../user-token-store.service';
 
 @Injectable({
@@ -15,44 +12,38 @@ import { UserTokenStoreService } from '../user-token-store.service';
 })
 export class AuthStoreService  {
 
-  //TODO: get user data only from the token's session storage
-  //extract out objectId from the token
-  //get the user data from the api based on objectId (super-admin service)
-
   constructor(
     private authHttp: AuthHttpService,
-    private superAdminService: SuperAdminService,
     private userTokenStoreService: UserTokenStoreService
   ) {
     //TODO: refactor this to a generic method (verifyUser) 
     //////////////////////////////////////////
     const token = this.userTokenStoreService.getToken();
+    const user = this.userTokenStoreService.getUser();
 
-    if (!token) {
+    if (!token || !user) {
       return;
     }
+    
+    this._user.set(user); //the user store is stateless and will be set to null on logout 
+    
+    // const decode = jwtDecode(token) as TokenPayload; //use the token payload interface
 
-    const decode = jwtDecode(token) as TokenPayload; //use the token payload interface
-    const {ObjectId} = decode;
-    console.log(ObjectId)
-    console.log('COnstructor ran')
 
-
-    this.superAdminService.getAdmin(ObjectId)
-      .pipe( //transform the data to the user interface
-        map( adminData => { 
-          const user: User = {
-            admin: adminData,
-            token: {result: {
-              token: token,
-              refreshToken: adminData.refreshToken
-            }}
-          }
-          return user;
-        })
-      ).subscribe(user => this._user.set(user));
-      
-    //get the user data from the api based on ObjectId
+        //runs asynchronously
+    // this.superAdminService.getAdmin(ObjectId)
+    //   .pipe( //transform the data to the user interface
+    //     map( adminData => { 
+    //       const user: User = {
+    //         admin: adminData,
+    //         token: {result: {
+    //           token: token,
+    //           refreshToken: adminData.refreshToken
+    //         }}
+    //       }
+    //       return user;
+    //     })
+    //   ).subscribe(user => this._user.set(user));
 
     //////////////////////////////////////////
     

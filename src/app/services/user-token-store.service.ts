@@ -26,7 +26,7 @@ export class UserTokenStoreService {
     }
     
     decodeToken(token: string): TokenPayload {
-        return jwtDecode(token);
+        return jwtDecode(token) as TokenPayload;
     }
 
     getToken(): string {
@@ -41,17 +41,26 @@ export class UserTokenStoreService {
         sessionStorage.removeItem('token');
     }
 
-    isTokenExpired(token: string): void {
+    isTokenExpired(token: string): boolean {
         try {
-            const decoded: any = jwtDecode(token!);
-            console.log(decoded);
+            const decoded = this.decodeToken(token);
+            const {exp} = decoded;
+            return exp * 1000 < new Date().valueOf();
         } catch (error) {
             console.log('Failed to decode token', error);
+            return false
         }
     }
 
-    isTokenValid(token: string): boolean {
-        return false;
+    getUserIdFromToken(token: string): string {
+        try {
+            const decoded = this.decodeToken(token);
+            const {ObjectId} = decoded;
+            return ObjectId;
+        } catch (error) {
+            console.log('Failed to decode token', error);
+            return ""
+        }
     }
 
 
