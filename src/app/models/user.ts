@@ -1,7 +1,7 @@
 import { Token } from "./token";
 import { Admin } from "./admin";
 
-export interface User {
+export interface UserAdmin {
     token: Token;
     admin: Admin;
 }

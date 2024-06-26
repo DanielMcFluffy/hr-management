@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { User } from "../../models/user";
+import { UserAdmin } from "../../models/user";
 import { HttpService } from "../http.service";
 import { Api_URL_POST } from "../../models/api";
 
@@ -19,10 +19,10 @@ export class AuthHttpService {
         private httpService: HttpService
     ) {}
 
-    send_login(username: string, password: string): Observable<User> {
+    send_login(username: string, password: string): Observable<UserAdmin> {
        return this.httpService.POST<
             {username: string, password: string},
-            User,
+            UserAdmin,
             Api_URL_POST
         >
         ("Account/Login", {username, password})

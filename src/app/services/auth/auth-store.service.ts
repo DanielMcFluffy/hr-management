@@ -4,7 +4,7 @@ import {
   catchError, map, tap, throwError } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AuthHttpService } from './auth.http.services';
-import { User } from '../../models/user';
+import { UserAdmin } from '../../models/user';
 import { UserTokenStoreService } from '../user-token-store.service';
 
 @Injectable({
@@ -50,7 +50,7 @@ export class AuthStoreService  {
   }
 
   //user store
-  private _user = signal<User | null>(null);
+  private _user = signal<UserAdmin | null>(null);
   user = this._user.asReadonly();
   user$ = toObservable(this._user); 
   
@@ -65,7 +65,7 @@ export class AuthStoreService  {
   
   isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
   
-  login(username: string, password: string): Observable<User> {
+  login(username: string, password: string): Observable<UserAdmin> {
     //call the api to login
     return this.authHttp.send_login(username, password)
             .pipe(

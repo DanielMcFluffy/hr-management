@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 
 import { superAdminAuthGuard } from './shared/guards/super-admin-auth.guard';
 import { adminAuthGuard } from './shared/guards/admin-auth.guard';
+import { permissionGuard } from './shared/guards/permission.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,31 +32,31 @@ export const routes: Routes = [
       //shared routes
       {path: 'employee', 
       loadComponent: () => import('./admin/admin-employee/admin-employee.component').then(c => c.AdminEmployeeComponent),
-      canActivate: [adminAuthGuard],
+      canActivate: [adminAuthGuard, permissionGuard],
         children: [
             { path: 'department', 
             loadComponent: () => import('./admin/admin-employee/admin-employee-department/admin-employee-department.component').then(c => c.AdminEmployeeDepartmentComponent),
-            canActivate: [adminAuthGuard],
+            canActivate: [adminAuthGuard, permissionGuard],
             },
             { path: 'attendance', loadComponent: () => import ('./admin/admin-employee/admin-employee-attendance/admin-employee-attendance.component').then(c => c.AdminEmployeeAttendanceComponent),
-            canActivate: [adminAuthGuard],
+            canActivate: [adminAuthGuard, permissionGuard],
             },
             { path: 'payroll', loadComponent: () => import ('./admin/admin-employee/admin-employee-payroll/admin-employee-payroll.component').then(c => c.AdminEmployeePayrollComponent),
-            canActivate: [adminAuthGuard],
+            canActivate: [adminAuthGuard, permissionGuard],
             },
             ]
         },
         {path: 'projects', 
         loadComponent: () => import('./admin/admin-projects/admin-projects.component').then(c => c.AdminProjectsComponent),
-        canActivate: [adminAuthGuard]
+        canActivate: [adminAuthGuard, permissionGuard]
         },
         {path: 'schedule', 
         loadComponent: () => import('./admin/admin-schedule/admin-schedule.component').then(c => c.AdminScheduleComponent),
-        canActivate: [adminAuthGuard]
+        canActivate: [adminAuthGuard, permissionGuard]
         },
         {path: 'leave', 
         loadComponent: () => import('./admin/admin-leave/admin-leave.component').then(c => c.AdminLeaveComponent),
-        canActivate: [adminAuthGuard]
+        canActivate: [adminAuthGuard, permissionGuard]
         },
     ]
   },

@@ -16,7 +16,6 @@ type PermissionMapping = {
 //PermissionActions<"E01"> = ["ViewEmployee", "CreateEmployee", "UpdateEmployee", "DeleteEmployee"]
 export type PermissionActions<TLevel extends keyof PermissionMapping> = PermissionMapping[TLevel] 
 
-
 export interface Permission <TLevel extends keyof PermissionMapping>{
     permissionLevel: TLevel;
     permissionDesc: string;

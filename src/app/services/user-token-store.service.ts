@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { jwtDecode } from 'jwt-decode';
 import { TokenPayload } from "../models/token";
-import { User } from "../models/user";
+import { UserAdmin } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -12,12 +12,12 @@ export class UserTokenStoreService {
     constructor(
     ) {}
 
-    getUser(): User {
+    getUser(): UserAdmin {
         const user = sessionStorage.getItem('user');
         return user ? JSON.parse(user) : null;
     }
 
-    storeUser(user: User) {
+    storeUser(user: UserAdmin) {
         sessionStorage.setItem('user', JSON.stringify(user));
     }
 
