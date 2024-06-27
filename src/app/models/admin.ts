@@ -2,16 +2,16 @@ import { Permission, PermissionLevel } from "./permission";
 
 
 export interface Admin {
-    username: string;
+    username: string;//
     password: string;
-    email: string;
-    isSuperAdmin: boolean;
-    permission: Permission<PermissionLevel>[] | null; // the length here is 1
+    email: string; //
+    isSuperAdmin: boolean; //
+    permission: Permission<PermissionLevel>[] | null; // 
     loginAttempts: number;
-    isLocked: boolean;
+    isLocked: boolean; 
     lockoutEnd?: string;
-    isLogin: boolean;
-    lastLogin: string;
+    isLogin: boolean; 
+    lastLogin: string; //
     refreshToken: string;
     refreshTokenExpiry: string;
     created_at: string;

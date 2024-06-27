@@ -5,7 +5,7 @@ import {
   } from '@angular/common/http';
 import { inject } from '@angular/core';
   import { Observable } from 'rxjs';
-import { UserTokenStoreService } from '../../services/user-token-store.service';
+import { UserTokenStoreService } from '../services/user-token-store.service';
 
   export function AuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
 

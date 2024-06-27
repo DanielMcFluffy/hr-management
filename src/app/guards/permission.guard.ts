@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { UserTokenStoreService } from '../../services/user-token-store.service';
+import { UserTokenStoreService } from '../services/user-token-store.service';
 
 export const permissionGuard: CanActivateFn = (route, state) => {
 

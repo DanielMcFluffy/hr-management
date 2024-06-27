@@ -21,11 +21,20 @@ export class AuthHttpService {
 
     send_login(username: string, password: string): Observable<UserAdmin> {
        return this.httpService.POST<
-            {username: string, password: string},
-            UserAdmin,
-            Api_URL_POST
+        {username: string, password: string},
+        UserAdmin,
+        Api_URL_POST
         >
         ("Account/Login", {username, password})
+    }
+
+    send_logout() {
+        return this.httpService.POST<
+        null,
+        any,
+        Api_URL_POST
+        >
+        ("Account/Logout", null)
     }
 
     send_requestRefreshToken(userToken: token): Observable<token> {

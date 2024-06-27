@@ -7,10 +7,13 @@ import { Admin } from "../../models/admin";
     providedIn: 'root'
 })
 export class SuperAdminService {
+
     
     constructor(
         private superAdminHttpService: SuperAdminHttpService
-    ) {}
+    ) {
+        
+    }
 
     getAdmins(): Observable<Admin[]>  {
         return this.superAdminHttpService.send_getAdmins();

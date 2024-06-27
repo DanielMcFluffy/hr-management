@@ -1,1 +1,19 @@
-<p>admin-accounts works!</p>
+<!-- master-detail-ui pattern -->
+
+<!-- this will show when the array admins exist, show when !adminDetailClicked -->
+@if (admins| async; as admins) {
+    <ng-container>
+            
+        <detail-table>
+            
+        </detail-table>
+            
+    </ng-container>
+    }
+<!-- this will be the detailed admin upon click, show when adminDetailClicked -->
+@else {
+    <ng-template >
+        <admin-detail></admin-detail>
+    </ng-template>
+}
+

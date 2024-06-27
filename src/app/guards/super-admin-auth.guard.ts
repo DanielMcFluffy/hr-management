@@ -1,13 +1,21 @@
+//auth guard will check 2 things
+//checks if the token is expired
+//checks if the user is super admin
+
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { UserTokenStoreService } from '../../services/user-token-store.service';
-import { AuthHttpService } from '../../services/auth/auth.http.services';
-import { tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
+import { UserTokenStoreService } from '../services/user-token-store.service';
+import { AuthHttpService } from '../services/auth/auth.http.services';
+import { SuperAdminService } from '../services/super-admin/super-admin.service';
+import { UserAdmin } from '../models/user';
 
-export const adminAuthGuard: CanActivateFn = (route, state) => {
+export const superAdminAuthGuard: CanActivateFn = (route, state) => {
+
   const router = inject(Router);
   const userTokenStoreService = inject(UserTokenStoreService);
   const authHttpService = inject(AuthHttpService);
+  const superAdminService = inject(SuperAdminService);
 
   //get the user from the store
   let user = userTokenStoreService.getUser();
@@ -19,9 +27,11 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   //get the token from the store(session storage)
   const token = userTokenStoreService.getToken();
   //get the user id from token
+  const userId = userTokenStoreService.getUserIdFromToken(token);
 
   let isTokenExpired = userTokenStoreService.isTokenExpired(token);
   let isRefreshTokenExpired = refreshTokenExpiry < new Date().valueOf();
+
   
   if (isTokenExpired && isRefreshTokenExpired) {
     router.navigate(['/home']);
@@ -38,33 +48,40 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
           //then update the admin data with the new token data to session storage
 
           userTokenStoreService.setToken(tokenData.token);
-          //update user
+          //get the token data and update the user with the new token data
           user = {
             ...user,
-            admin: {
-              ...user.admin,
-              refreshToken: tokenData.refreshToken,
-            },
             token: {
-              result: tokenData
+              ...tokenData
             }
           }
-            //due to limited perms, normal admin can't get its own data from backend (means refreshtoken expiry remains the same)
+
           userTokenStoreService.storeUser(user)
-        })
-          ).subscribe(() => {
-        user = userTokenStoreService.getUser(); //update the user
+        }),
+        switchMap((tokenData) => superAdminService.getAdmin(userId).pipe( //this returns an observable of Admin
+            map(
+              //transform the admin data to user data
+            (adminData) => {
+
+              return {
+                ...user,
+                admin: {...adminData}
+              } as UserAdmin
+            })
+          ))
+      ).subscribe((updatedUserData) => {
+        userTokenStoreService.storeUser(updatedUserData);
+        user = updatedUserData; //update the user
       })
 
   }
 
-  const isAdmin = user.admin;
+  const isSuperAdmin = user!.admin.isSuperAdmin;
 
-  if (!isAdmin) {
-    router.navigate(['/home']);
+  if (!isSuperAdmin) {
+    router.navigate(['/dashboard/admin']);
     return false;
   }
-
 //finally, return true
   return true
 };

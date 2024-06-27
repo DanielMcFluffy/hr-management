@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
@@ -7,6 +7,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { Observable } from 'rxjs';
 import { SidebarMobileToolbarService } from '../../../services/sidebar-mobile-toolbar.service';
 import { RouterModule } from '@angular/router';
+import { AuthStoreService } from '../../../services/auth/auth-store.service';
 @Component({
   selector: 'toolbar',
   standalone: true,
@@ -62,6 +63,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private MobileToolbarService: SidebarMobileToolbarService,
+    private authStoreService: AuthStoreService,
   ) {
     this.currentPage$ = this.MobileToolbarService.page$;
   }
@@ -86,6 +88,8 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-
+  logout() {
+    this.authStoreService.logout();
+  }
 
 }

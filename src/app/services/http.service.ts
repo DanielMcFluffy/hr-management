@@ -23,7 +23,7 @@ export class HttpService {
     TApi_URL extends Api_URL_GET
     >
     (api_url: TApi_URL, id?: string): Observable<TResponse> {
-        return this.http.get<TResponse>(base_Api_URL + api_url + id)
+        return this.http.get<TResponse>(base_Api_URL + api_url + (id || ''))
             .pipe(
                 catchError(err => {
                     console.error(err);

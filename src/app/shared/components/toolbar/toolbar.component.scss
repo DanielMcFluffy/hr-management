@@ -207,6 +207,7 @@ search-bar {
     box-shadow: 10px 0 10px 0 rgba(0, 0, 0, 0.1);
 
     li {
+      list-style-type: none;
       margin-bottom: 4px;
       border-radius: 5px;
       &:hover {

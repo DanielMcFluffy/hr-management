@@ -71,7 +71,7 @@ export class AuthStoreService  {
             .pipe(
               tap(user => {
                 this._user.set(user);
-                this.userTokenStoreService.setToken(user.token.result.token);
+                this.userTokenStoreService.setToken(user.token.token);
                 this.userTokenStoreService.storeUser(user);
               })
             )
@@ -79,8 +79,11 @@ export class AuthStoreService  {
   
   
   logout() {
-    this._user.set(null);
-    this.userTokenStoreService.removeToken();
+    this.authHttp.send_logout().subscribe(() => {
+      console.log("logged out");
+      this._user.set(null);
+      this.userTokenStoreService.removeToken();
+    })
   }
 
   verifyUser<T>() {
@@ -91,7 +94,7 @@ export class AuthStoreService  {
   }
 
   requestRefreshToken() {
-    return this.authHttp.send_requestRefreshToken(this.user()!.token.result)
+    return this.authHttp.send_requestRefreshToken(this.user()!.token)
   }
 
 

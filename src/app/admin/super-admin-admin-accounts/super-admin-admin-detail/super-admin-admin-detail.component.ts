@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-detail',
+  selector: 'admin-detail',
   standalone: true,
   imports: [],
   templateUrl: './super-admin-admin-detail.component.html',

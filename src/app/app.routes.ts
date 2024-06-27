@@ -3,9 +3,9 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 
-import { superAdminAuthGuard } from './shared/guards/super-admin-auth.guard';
-import { adminAuthGuard } from './shared/guards/admin-auth.guard';
-import { permissionGuard } from './shared/guards/permission.guard';
+import { superAdminAuthGuard } from './guards/super-admin-auth.guard';
+import { adminAuthGuard } from './guards/admin-auth.guard';
+import { permissionGuard } from './guards/permission.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
