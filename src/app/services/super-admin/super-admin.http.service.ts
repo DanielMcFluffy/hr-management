@@ -3,6 +3,7 @@ import { HttpService } from "../http.service";
 import { Observable } from "rxjs";
 import { Admin } from "../../models/admin";
 import { Api_URL_DELETE, Api_URL_GET, Api_URL_POST } from "../../models/api";
+import { Response } from "../../models/response";
 
 @Injectable({
     providedIn:'root'
@@ -14,16 +15,16 @@ export class SuperAdminHttpService {
     ) {
     }
 
-    send_getAdmins(): Observable<Admin[]> {
+    send_getAdmins(): Observable<Response<Admin[]>> {
         return this.httpService.GET<
-        Admin[],
+        Response<Admin[]>,
         Api_URL_GET
         >("Admin")
     }
 
-    send_getAdmin(id: string): Observable<Admin> {
+    send_getAdmin(id: string): Observable<Response<Admin>> {
         return this.httpService.GET<
-        Admin,
+        Response<Admin>,
         Api_URL_GET
         >("Admin/View/", id)
     }

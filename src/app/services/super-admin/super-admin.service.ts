@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { SuperAdminHttpService } from "./super-admin.http.service";
 import { Observable } from "rxjs";
 import { Admin } from "../../models/admin";
+import { Response } from "../../models/response";
 
 @Injectable({
     providedIn: 'root'
@@ -15,11 +16,11 @@ export class SuperAdminService {
         
     }
 
-    getAdmins(): Observable<Admin[]>  {
+    getAdmins(): Observable<Response<Admin[]>>  {
         return this.superAdminHttpService.send_getAdmins();
     }
 
-    getAdmin(id: string): Observable<Admin> {
+    getAdmin(id: string): Observable<Response<Admin>> {
         return this.superAdminHttpService.send_getAdmin(id);
     }
 

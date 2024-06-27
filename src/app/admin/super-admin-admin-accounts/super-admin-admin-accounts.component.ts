@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SuperAdminService } from '../../services/super-admin/super-admin.service';
 import { Admin } from '../../models/admin';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { SuperAdminAdminDetailComponent } from './super-admin-admin-detail/super-admin-admin-detail.component';
 import { DetailTableComponent } from '../../shared/components/detail-table/detail-table.component';
 
@@ -27,7 +27,9 @@ export class SuperAdminAdminAccountsComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.admins = this.superAdminService.getAdmins();
+    this.admins = this.superAdminService.getAdmins().pipe(
+      map(res => res.result)
+    )
 }
 
 

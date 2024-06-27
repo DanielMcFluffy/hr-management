@@ -3,11 +3,8 @@ import { Observable } from "rxjs";
 import { UserAdmin } from "../../models/user";
 import { HttpService } from "../http.service";
 import { Api_URL_POST } from "../../models/api";
-
-interface token {
-    token: string;
-    refreshToken: string;
-}
+import { Token} from "../../models/token";
+import { BaseResponse, LoginResponse, TokenResponse } from "../../models/response";
 
 
 @Injectable({
@@ -19,10 +16,10 @@ export class AuthHttpService {
         private httpService: HttpService
     ) {}
 
-    send_login(username: string, password: string): Observable<UserAdmin> {
+    send_login(username: string, password: string): Observable<LoginResponse> {
        return this.httpService.POST<
         {username: string, password: string},
-        UserAdmin,
+        LoginResponse,
         Api_URL_POST
         >
         ("Account/Login", {username, password})
@@ -31,16 +28,16 @@ export class AuthHttpService {
     send_logout() {
         return this.httpService.POST<
         null,
-        any,
+        BaseResponse,
         Api_URL_POST
         >
         ("Account/Logout", null)
     }
 
-    send_requestRefreshToken(userToken: token): Observable<token> {
+    send_requestRefreshToken(userToken: Token): Observable<TokenResponse> {
         return this.httpService.POST<
-        token,
-        token,
+        Token,
+        TokenResponse,
         Api_URL_POST
         >
         ("Account/RefreshToken", userToken)

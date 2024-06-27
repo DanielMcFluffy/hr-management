@@ -76,7 +76,7 @@ export class AdminLoginComponent implements OnInit{
 
       this.authStore.login(this.username, this.password)
       .subscribe({
-        next: user => {
+        next: res => {
           this.messageService.setMessage('Login successful!', true);
           setTimeout(() => {
             this.router.navigate(['/dashboard']);

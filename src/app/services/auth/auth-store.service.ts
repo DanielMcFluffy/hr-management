@@ -6,6 +6,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { AuthHttpService } from './auth.http.services';
 import { UserAdmin } from '../../models/user';
 import { UserTokenStoreService } from '../user-token-store.service';
+import { LoginResponse } from '../../models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -65,13 +66,17 @@ export class AuthStoreService  {
   
   isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
   
-  login(username: string, password: string): Observable<UserAdmin> {
+  login(username: string, password: string): Observable<LoginResponse> {
     //call the api to login
     return this.authHttp.send_login(username, password)
             .pipe(
-              tap(user => {
+              tap(res => {
+                const user: UserAdmin = {
+                  auth: res.auth,
+                  admin: res.result
+                };
                 this._user.set(user);
-                this.userTokenStoreService.setToken(user.token.token);
+                this.userTokenStoreService.setToken(res.auth.token);
                 this.userTokenStoreService.storeUser(user);
               })
             )
@@ -94,7 +99,7 @@ export class AuthStoreService  {
   }
 
   requestRefreshToken() {
-    return this.authHttp.send_requestRefreshToken(this.user()!.token)
+    return this.authHttp.send_requestRefreshToken(this.user()!.auth)
   }
 
 

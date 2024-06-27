@@ -4,12 +4,11 @@
 
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { UserTokenStoreService } from '../../services/user-token-store.service';
+import { AuthHttpService } from '../../services/auth/auth.http.services';
 import { map, switchMap, tap } from 'rxjs';
-import { UserTokenStoreService } from '../services/user-token-store.service';
-import { AuthHttpService } from '../services/auth/auth.http.services';
-import { SuperAdminService } from '../services/super-admin/super-admin.service';
-import { UserAdmin } from '../models/user';
-
+import { SuperAdminService } from '../../services/super-admin/super-admin.service';
+import { UserAdmin } from '../../models/user';
 export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   const router = inject(Router);
@@ -23,12 +22,10 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
   const refreshToken = user.admin.refreshToken;
   //get the refreshTokenExpiry(ms) from user 
   const refreshTokenExpiry = new Date(user.admin.refreshTokenExpiry).valueOf();
-  console.log(user)
-  console.log(refreshToken)
+  
   //get the token from the store(session storage)
   const token = userTokenStoreService.getToken();
   //get the user id from token
-  console.log(token)
   const userId = userTokenStoreService.getUserIdFromToken(token);
 
   let isTokenExpired = userTokenStoreService.isTokenExpired(token);
@@ -45,29 +42,29 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
     //call the refresh token endpoint
     authHttpService.send_requestRefreshToken({token, refreshToken})
       .pipe(
-        tap((tokenRes) => {
+        tap((tokenData) => {
           //get the token data, then save the token data to the session storage
           //then update the admin data with the new token data to session storage
 
-          userTokenStoreService.setToken(tokenRes.auth.token);
+          userTokenStoreService.setToken(tokenData.token);
           //get the token data and update the user with the new token data
           user = {
             ...user,
-            auth: {
-              ...tokenRes.auth
+            token: {
+              result: tokenData
             }
           }
 
           userTokenStoreService.storeUser(user)
         }),
-        switchMap((tokenRes) => superAdminService.getAdmin(userId).pipe( //this returns an observable of Admin
+        switchMap((tokenData) => superAdminService.getAdmin(userId).pipe( //this returns an observable of Admin
             map(
               //transform the admin data to user data
             (adminData) => {
 
               return {
                 ...user,
-                admin: {...adminData.result}
+                admin: {...adminData}
               } as UserAdmin
             })
           ))

@@ -1,8 +1,8 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { UserTokenStoreService } from '../services/user-token-store.service';
+import { UserTokenStoreService } from '../../services/user-token-store.service';
+import { AuthHttpService } from '../../services/auth/auth.http.services';
 import { tap } from 'rxjs';
-import { AuthHttpService } from '../services/auth/auth.http.services';
 
 export const adminAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
@@ -33,20 +33,20 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
     //call the refresh token endpoint
     authHttpService.send_requestRefreshToken({token, refreshToken})
       .pipe(
-        tap((tokenRes) => {
+        tap((tokenData) => {
           //get the token data, then save the token data to the session storage
           //then update the admin data with the new token data to session storage
 
-          userTokenStoreService.setToken(tokenRes.auth.token);
+          userTokenStoreService.setToken(tokenData.token);
           //update user
           user = {
             ...user,
             admin: {
               ...user.admin,
-              refreshToken: tokenRes.auth.refreshToken,
+              refreshToken: tokenData.refreshToken,
             },
-            auth: {
-               ...tokenRes.auth
+            token: {
+              result: tokenData
             }
           }
             //due to limited perms, normal admin can't get its own data from backend (means refreshtoken expiry remains the same)

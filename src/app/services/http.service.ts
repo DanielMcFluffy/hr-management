@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { Observable, catchError, shareReplay, throwError } from "rxjs";
 import { Api_URL_DELETE, Api_URL_GET, Api_URL_POST } from "../models/api";
 import { base_Api_URL } from "../environment/environment";
+import { BaseResponse } from "../models/response";
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class HttpService {
     }
 
     GET<
-    TResponse,
+    TResponse extends BaseResponse,
     TApi_URL extends Api_URL_GET
     >
     (api_url: TApi_URL, id?: string): Observable<TResponse> {
@@ -35,7 +36,7 @@ export class HttpService {
 
     POST<
     TRequest,
-    TResponse,
+    TResponse extends BaseResponse,
     TApi_URL extends Api_URL_POST,
     >
     (api_url: TApi_URL, request: TRequest, id?: string): Observable<TResponse> {
@@ -51,7 +52,7 @@ export class HttpService {
     }
 
     DELETE<
-    TResponse,
+    TResponse extends BaseResponse,
     TApi_URL extends Api_URL_DELETE
     >
     (api_url: TApi_URL, id: string): Observable<TResponse> {
