@@ -23,7 +23,6 @@ import { UserTokenStoreService } from '../../services/user-token-store.service';
       const modifiedReq = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`), //this will pass in the authorization bearer to our endpoint
       });
-    //   console.log('before next.handle', this.token!);
       return next(modifiedReq)  
   }
   

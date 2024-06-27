@@ -22,11 +22,6 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
 
   let isTokenExpired = userTokenStoreService.isTokenExpired(token);
   let isRefreshTokenExpired = refreshTokenExpiry < new Date().valueOf();
-  console.log("isTokenExpired", isTokenExpired);
-  console.log("refreshTokenExpiry", new Date(refreshTokenExpiry));
-
-  console.log("from auth guard", token);
-  console.log("refresh token", refreshToken);
   
   if (isTokenExpired && isRefreshTokenExpired) {
     router.navigate(['/home']);
@@ -46,16 +41,19 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
           //update user
           user = {
             ...user,
+            admin: {
+              ...user.admin,
+              refreshToken: tokenData.refreshToken,
+            },
             token: {
               result: tokenData
             }
           }
-
+            //due to limited perms, normal admin can't get its own data from backend (means refreshtoken expiry remains the same)
           userTokenStoreService.storeUser(user)
         })
           ).subscribe(() => {
         user = userTokenStoreService.getUser(); //update the user
-        console.log("normal admin updated", user);
       })
 
   }
@@ -67,8 +65,6 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  console.log("user", user);
-  console.log("is user superadmin?", user?.admin.isSuperAdmin)
 //finally, return true
   return true
 };

@@ -8,7 +8,7 @@ import { UserTokenStoreService } from '../../services/user-token-store.service';
 import { AuthHttpService } from '../../services/auth/auth.http.services';
 import { map, switchMap, tap } from 'rxjs';
 import { SuperAdminService } from '../../services/super-admin/super-admin.service';
-import { Admin } from '../../models/admin';
+import { UserAdmin } from '../../models/user';
 export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   const router = inject(Router);
@@ -30,8 +30,7 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   let isTokenExpired = userTokenStoreService.isTokenExpired(token);
   let isRefreshTokenExpired = refreshTokenExpiry < new Date().valueOf();
-  console.log("isTokenExpired", isTokenExpired);
-  console.log("refreshTokenExpiry", refreshTokenExpiry);
+
   
   if (isTokenExpired && isRefreshTokenExpired) {
     router.navigate(['/home']);
@@ -48,7 +47,7 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
           //then update the admin data with the new token data to session storage
 
           userTokenStoreService.setToken(tokenData.token);
-          //update user
+          //get the token data and update the user with the new token data
           user = {
             ...user,
             token: {
@@ -58,20 +57,15 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
           userTokenStoreService.storeUser(user)
         }),
-        switchMap((tokenData) => superAdminService.getAdmin(userId).pipe(
+        switchMap((tokenData) => superAdminService.getAdmin(userId).pipe( //this returns an observable of Admin
             map(
               //transform the admin data to user data
             (adminData) => {
 
-              const updatedAdminData: Admin = {
-                ...adminData,
-                refreshToken: tokenData.refreshToken,
-              }
-
               return {
                 ...user,
-                admin: updatedAdminData
-              }
+                admin: {...adminData}
+              } as UserAdmin
             })
           ))
       ).subscribe((updatedUserData) => {
@@ -87,8 +81,6 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
     router.navigate(['/dashboard/admin']);
     return false;
   }
-  console.log("user", user);
-  console.log("is user superadmin?", user?.admin.isSuperAdmin)
 //finally, return true
   return true
 };
