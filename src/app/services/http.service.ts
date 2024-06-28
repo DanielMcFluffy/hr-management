@@ -12,8 +12,6 @@ import { BaseResponse } from "../models/response";
 })
 export class HttpService {
 
-    httpAuthClient!: HttpClient;
-
     constructor(
         private http: HttpClient,
     ) {

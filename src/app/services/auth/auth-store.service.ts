@@ -75,12 +75,12 @@ export class AuthStoreService  {
     })
   }
 
-  verifyUser<T>() {
-    //this will be a generic type that will run in the constructor
-    //extracts the objectid from the token
-    //get the user data from the api based on the objectid
-    //set the user data to the _user signal
-  }
+  // verifyUser<T>() {
+  //   //this will be a generic type that will run in the constructor
+  //   //extracts the objectid from the token
+  //   //get the user data from the api based on the objectid
+  //   //set the user data to the _user signal
+  // }
 
   requestRefreshToken() {
     return this.authHttp.send_requestRefreshToken(this.user()!.auth)
