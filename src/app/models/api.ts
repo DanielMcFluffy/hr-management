@@ -3,6 +3,8 @@
 export type Api_URL_GET = 
 'Admin' |
 'Admin/View/'|
+'Department'|
+'Department/View/'|
 'Employee' |
 'Employee/View/' |
 'Permission' |
@@ -16,6 +18,8 @@ export type Api_URL_POST =
 'Account/RefreshToken' |
 'Admin/Create' |
 'Admin/Update/' |
+'Department/Create' |
+'Department/Update/' |
 'Employee/Create' |
 'Employee/Update/' |
 'Permission/Create' |
@@ -25,6 +29,7 @@ export type Api_URL_POST =
 
 export type Api_URL_DELETE = 
 'Admin/' | 
+'Department/' | 
 'Employee/' |
 'Permission/'|
 'Position/'

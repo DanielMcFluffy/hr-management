@@ -1,48 +1,48 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import {MatTable, MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatTableModule, MatTable } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { Admin } from '../../../models/admin';
+import { DetailTableDataSource, compare} from './detail-table-datasource';
 @Component({
-  selector: 'detail-table',
-  standalone: true,
-  imports: [MatPaginatorModule, MatTable, MatTableModule, MatButtonModule],
+  selector: 'app-detail-table',
   templateUrl: './detail-table.component.html',
-  styleUrl: './detail-table.component.scss'
+  styleUrl: './detail-table.component.scss',
+  standalone: true,
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule],
 })
-export class DetailTableComponent {
-  @Input() data: any;
+//the data source component is a generic type, so we can pass in the type of data we want to use
+//however, we cannot do that to the detail table component, so we can only pass in a union of types that we expect to be used here
+export class DetailTableComponent implements AfterViewInit, OnInit  {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<Admin>;
+  
+  //we can set different types of data to be passed from parent//we could make the types a union if we expect different types of data to be passed//or generic
+  @Input() displayedColumns!: (keyof Admin)[];
+  @Input() data!: Admin[]; 
 
-
-  // @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  dataSource = new MatTableDataSource([]);
-  displayedColumns: string[] = ["test", "this"]
-  totalRecords = 0;
-  pageSize = 10;
-  pageIndex = 0;
-
-
-getPagedData() {
-    // const search = {
-    //   // ... set filters here
-    // };
-
-    // this.searching = true;
-    // this.service.search(search).subscribe({
-    //   next: ((results) => {
-    //     this.totalRecords = results?.length ? results[0].totalRecords : 0;
-    //     this.dataSource.data = results || [];
-    //   }),
-    //   complete: () => this.searching = false,
-    //   error: () => this.searching = false,
-    // });
+  dataSource!: DetailTableDataSource<Admin>;
+  
+  
+  ngOnInit(): void {
+    this.dataSource = new DetailTableDataSource<Admin>(this.data, 
+      
+      (a, b) => {
+        const isAsc = this.sort?.direction === 'asc';
+        switch (this.sort?.active as keyof Admin) { //cross check with the actual used column names
+          case 'username': return compare(a.username, b.username, isAsc);
+          // case 'email': return compare(+a.id, +b.id, isAsc);
+          default: return 0;
+        }
+      }
+      
+    );
   }
-    
-    
-pageChangeEvent(event: PageEvent) {
-    // this.pageIndex = event.pageIndex;
-    // this.pageSize = event.pageSize;
-    // this.getPagedData();
-}
-
+  
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }
 }

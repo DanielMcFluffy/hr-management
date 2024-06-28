@@ -1,17 +1,54 @@
-<!-- <table mat-table [dataSource]="dataSource">
-     columns here -->
+<div class="mat-elevation-z8">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
 
-    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+        <td mat-cell *matCellDef="let row">{{row.username}}</td>
+      </ng-container>
+
+      <!-- email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let row">{{row.email}}</td>
+      </ng-container>
+
+      <!-- status Column -->
+      <ng-container matColumnDef="isLogin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.isLogin ? 'Online' : 'Offline'}}
+        </td>
+      </ng-container>
+
+      <!-- permission Column -->
+      <ng-container matColumnDef="permission">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Permission</th>
+        <td mat-cell *matCellDef="let row">
+          @if (row.permission) {
+
+            @for (permission of row.permission; track $index) {
+              <span> {{permission.permissionLevel}} </span>
+            }
+
+          } @else {
+            <span> Superadmin </span>
+          }
+
+        </td>
+      </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  </table>
 
-<mat-paginator 
-    #paginator
-    (page)="pageChangeEvent($event)"
-    [length]="totalRecords"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex"
-    [length]="totalRecords"
-    [pageSizeOptions]="[5, 10, 20, 50, 100]"
-    showFirstLastButtons>
-</mat-paginator> --> 
+  <mat-paginator #paginator
+  hidePageSize="true"
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="2"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>

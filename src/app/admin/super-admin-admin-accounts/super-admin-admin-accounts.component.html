@@ -1,13 +1,12 @@
 <!-- master-detail-ui pattern -->
-
+ 
 <!-- this will show when the array admins exist, show when !adminDetailClicked -->
 @if (admins| async; as admins) {
     <ng-container>
-            
-        <detail-table>
-            
-        </detail-table>
-            
+        <app-detail-table
+        [data]="admins"
+        [displayedColumns]="columns"
+        ></app-detail-table>
     </ng-container>
     }
 <!-- this will be the detailed admin upon click, show when adminDetailClicked -->

@@ -7,6 +7,7 @@ import { AuthHttpService } from './auth.http.services';
 import { UserAdmin } from '../../models/user';
 import { UserTokenStoreService } from '../user-token-store.service';
 import { LoginResponse } from '../../models/response';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthStoreService  {
 
   constructor(
     private authHttp: AuthHttpService,
-    private userTokenStoreService: UserTokenStoreService
+    private userTokenStoreService: UserTokenStoreService,
+    private router: Router
   ) {
     //TODO: refactor this to a generic method (verifyUser) 
     //////////////////////////////////////////
@@ -27,26 +29,6 @@ export class AuthStoreService  {
     }
     
     this._user.set(user); //the user store is stateless and will be set to null on logout 
-    
-    // const decode = jwtDecode(token) as TokenPayload; //use the token payload interface
-
-
-        //runs asynchronously
-    // this.superAdminService.getAdmin(ObjectId)
-    //   .pipe( //transform the data to the user interface
-    //     map( adminData => { 
-    //       const user: User = {
-    //         admin: adminData,
-    //         token: {result: {
-    //           token: token,
-    //           refreshToken: adminData.refreshToken
-    //         }}
-    //       }
-    //       return user;
-    //     })
-    //   ).subscribe(user => this._user.set(user));
-
-    //////////////////////////////////////////
     
   }
 
@@ -87,7 +69,9 @@ export class AuthStoreService  {
     this.authHttp.send_logout().subscribe(() => {
       console.log("logged out");
       this._user.set(null);
+      this.userTokenStoreService.clearUser();
       this.userTokenStoreService.removeToken();
+      this.router.navigate(['/home']);
     })
   }
 

@@ -77,14 +77,14 @@ export class AdminLoginComponent implements OnInit{
       this.authStore.login(this.username, this.password)
       .subscribe({
         next: res => {
-          this.messageService.setMessage('Login successful!', true);
+          this.messageService.setMessage("Login Success!", true);
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
           }, 2000);
           console.log({"expired": new Date(`${this.authStore.user()?.admin.refreshTokenExpiry}`)})
         },
         error: err => {
-          this.messageService.setMessage(err.message, false);
+          this.messageService.setMessage(err, false);
           console.log(err);
         }
       

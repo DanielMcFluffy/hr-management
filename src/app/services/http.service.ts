@@ -28,7 +28,7 @@ export class HttpService {
             .pipe(
                 catchError(err => {
                     console.error(err);
-                    return throwError(() => new Error(err.error));
+                    return throwError(() => new Error(err.error.response.message));
                     }
                 )
             )
@@ -44,7 +44,7 @@ export class HttpService {
             .pipe(
                 catchError(err => {
                     console.error(err);
-                    return throwError(() => new Error(err.error));
+                    return throwError(() => new Error(err.error.response.message));
                     }
                 ),
                 shareReplay()
@@ -60,7 +60,7 @@ export class HttpService {
             .pipe(
                 catchError(err => {
                     console.error(err);
-                    return throwError(() => new Error(err.error));
+                    return throwError(() => new Error(err.error.response.message));
                     }
                 )
             )

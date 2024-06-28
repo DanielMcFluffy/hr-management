@@ -19,6 +19,12 @@ export const superAdminAuthGuard: CanActivateFn = (route, state) => {
 
   //get the user from the store
   let user = userTokenStoreService.getUser();
+  
+  if (!user) {
+    router.navigate(['/home']);
+    return false;
+  }
+
   //get the refreshToken from user
   const refreshToken = user.admin.refreshToken;
   //get the refreshTokenExpiry(ms) from user 

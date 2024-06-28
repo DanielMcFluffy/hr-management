@@ -10,7 +10,13 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   const authHttpService = inject(AuthHttpService);
 
   //get the user from the store
-  let user = userTokenStoreService.getUser();
+  let user = userTokenStoreService.getUser()
+
+  if (!user) {
+    router.navigate(['/home']);
+    return false;
+  }
+
   //get the refreshToken from user
   const refreshToken = user.admin.refreshToken;
   //get the refreshTokenExpiry(ms) from user 
