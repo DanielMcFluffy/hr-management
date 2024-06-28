@@ -16,7 +16,10 @@ import { DetailTableDataSource, compare} from './detail-table-datasource';
 export class DetailTableComponent implements AfterViewInit, OnInit  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<Admin>;
+  @ViewChild(MatTable) table!: MatTable<
+  Admin 
+  //insert other types of data that can be passed here
+  >;
   
   //we can set different types of data to be passed from parent//we could make the types a union if we expect different types of data to be passed//or generic
   @Input() displayedColumns!: (keyof Admin)[];
@@ -24,15 +27,16 @@ export class DetailTableComponent implements AfterViewInit, OnInit  {
 
   dataSource!: DetailTableDataSource<Admin>;
   
-  
   ngOnInit(): void {
     this.dataSource = new DetailTableDataSource<Admin>(this.data, 
       
       (a, b) => {
         const isAsc = this.sort?.direction === 'asc';
-        switch (this.sort?.active as keyof Admin) { //cross check with the actual used column names
+        switch (this.sort?.active as keyof (Admin)) { //cross check with the actual used column names
           case 'username': return compare(a.username, b.username, isAsc);
-          // case 'email': return compare(+a.id, +b.id, isAsc);
+          case 'email': return compare(+a.username, +b.username, isAsc);
+          case 'isLogin': return compare(+a.isLogin, +b.isLogin, isAsc);
+          case 'permission': return compare(+a.permission!, +b.permission!, isAsc);
           default: return 0;
         }
       }
